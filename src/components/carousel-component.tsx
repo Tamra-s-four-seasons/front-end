@@ -14,6 +14,7 @@ interface TrailData {
   tags: string[];
   imageUrl?: string | null;
   isLocked?: boolean;
+  backgroundImage?: string;
 }
 
 const mockTrails: TrailData[] = [
@@ -24,6 +25,7 @@ const mockTrails: TrailData[] = [
     difficulty: 1,
     tags: ["해커톤", "열정"],
     imageUrl: null,
+    backgroundImage: "/images/signin/background-1.png",
   },
   {
     trailName: "바람 올레",
@@ -32,6 +34,7 @@ const mockTrails: TrailData[] = [
     difficulty: 2,
     tags: ["해안도로", "경치"],
     imageUrl: null,
+    backgroundImage: "/images/signin/background-2.png",
   },
   {
     trailName: "땅콩 올레",
@@ -40,6 +43,7 @@ const mockTrails: TrailData[] = [
     difficulty: 3,
     tags: ["낭만", "일출"],
     imageUrl: null,
+    backgroundImage: "/images/signin/background-3.png",
   },
   // 잠금 카드 추가
   {
