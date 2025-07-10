@@ -127,9 +127,11 @@ const SigninForm = () => {
         소셜 아이디로 3초만에 현업 코드 획득하기!
       </p>
       <div className="h-8 @md:h-2" />
-      <Button className="bg-blue-500 rounded-sm text-white">
-        카카오로 시작하기
-      </Button>
+      <Link href="/home">
+        <Button className="bg-blue-500 rounded-sm text-white">
+          카카오로 시작하기
+        </Button>
+      </Link>
       <div className="h-3 @md:h-5" />
       <Button className="bg-blue-500 rounded-sm text-white">
         구글로 시작하기
