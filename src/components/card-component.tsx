@@ -3,6 +3,7 @@
 import React from "react";
 import { Star } from "lucide-react";
 import { LockIcon } from "@vapor-ui/icons";
+import Image from "next/image";
 
 interface CardComponentProps {
   trailName: string;
@@ -22,7 +23,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
   difficulty,
   tags,
   imageUrl,
-  size = "normal",
+  // size = "normal",
   isLocked = false,
 }) => {
   if (isLocked) {
@@ -54,7 +55,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
           bg-gray-200`}
       >
         {imageUrl ? (
-          <img
+          <Image
             src={imageUrl}
             alt={trailName}
             className="w-full h-full object-cover"

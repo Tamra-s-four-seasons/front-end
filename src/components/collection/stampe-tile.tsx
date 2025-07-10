@@ -2,13 +2,12 @@
 
 import React from "react";
 import { LockIcon } from "@vapor-ui/icons";
-import { Star, X } from "lucide-react";
+import { X } from "lucide-react";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
-  DialogClose,
 } from "@vapor-ui/core";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import CardComponent from "../card-component";
@@ -58,7 +57,7 @@ export default function StampTile() {
                   <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div>
                       <div className="flex justify-center mt-8">
-                        <DialogContent className="!border-none !rounded-none !bg-transparent !flex-row !items-center !shadow-none flex items-center justify-center w-[85vw] max-w-md">
+                        <DialogContent className="!border-none !rounded-none !bg-transparent !flex-row !items-center !shadow-none flex justify-center w-[85vw] max-w-md">
                           <div className="w-full  p-3">
                             <VisuallyHidden>
                               <DialogTitle>구름 올레</DialogTitle>
