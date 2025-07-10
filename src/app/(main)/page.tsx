@@ -5,7 +5,7 @@ import Script from "next/script";
 const HomePage = () => {
   return (
     <>
-      <h1>홈페이지</h1>
+      <h1 className="text-accent">홈페이지</h1>
       <Link href="/new">새 미션</Link>
       <Script
         type="module"
