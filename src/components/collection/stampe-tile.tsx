@@ -11,25 +11,42 @@ import {
 } from "@vapor-ui/core";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import CardComponent from "../card-component";
+import Image from "next/image";
 
 // Mock data for modal card
 const MODAL_CARD_DATA = {
   trailName: "구름 올레",
   location: "제주도 서귀포시",
   distance: "7.4km",
-  difficulty: 3, // 별점 3개로 수정
+  difficulty: 3,
   tags: ["중급", "계곡", "숲길"],
-  imageUrl: null,
+  imageUrl: "/images/asset-0.png",
+  backgroundImage: "/images/asset-0.png",
 };
 
 // locked: true = 비활성+자물쇠, locked: false = 활성, locked: null = 비활성+자물쇠 없음
 const CARD_DATA = [
-  { id: 1, locked: true }, // 비활성+자물쇠
-  { id: 2, locked: false }, // 활성
-  { id: 3, locked: true }, // 비활성+자물쇠
-  { id: 4, locked: null }, // 비활성+자물쇠 없음
-  { id: 5, locked: false }, // 활성
-  { id: 6, locked: true }, // 비활성+자물쇠
+  {
+    id: 1,
+    name: "구름올레",
+    stamp: "/images/signin/stamp1.svg",
+    locked: false,
+  },
+  {
+    id: 2,
+    name: "한라봉올레",
+    stamp: "/images/signin/stamp2.svg",
+    locked: true,
+  },
+  { id: 3, name: "땅콩올레", stamp: "/images/signin/stamp3.svg", locked: null },
+  { id: 4, name: "구름올레", stamp: "/images/signin/stamp1.svg", locked: true },
+  {
+    id: 5,
+    name: "한라봉올레",
+    stamp: "/images/signin/stamp2.svg",
+    locked: false,
+  },
+  { id: 6, name: "땅콩올레", stamp: "/images/signin/stamp3.svg", locked: true },
 ];
 
 export default function StampTile() {
@@ -42,6 +59,11 @@ export default function StampTile() {
     }
     return acc;
   }, [] as Array<typeof CARD_DATA>);
+
+  const getStampColor = (locked: boolean | null) => {
+    if (locked === false) return "#EAFCF1"; // 성공 - 초록색 배경
+    return "#CFCFCF"; // 비활성 또는 시도 안한 경우 - 회색
+  };
 
   return (
     <div className="flex flex-col items-center bg-[#F6F6F6] p-[5%] mt-[20px] rounded-2xl">
@@ -60,22 +82,39 @@ export default function StampTile() {
                 return (
                   <Dialog.Root key={card.id}>
                     <DialogTrigger asChild>
-                      <div className="bg-white rounded-2xl flex flex-col items-center py-4 cursor-pointer w-[48%] min-h-[10rem] h-auto">
-                        <div className="w-[70%] aspect-square rounded-full flex items-center justify-center mb-3 bg-[#EAFCF1]"></div>
+                      <div className="bg-white rounded-2xl flex flex-col items-center py-4 cursor-pointer w-[48%] min-h-[10rem] h-auto relative overflow-hidden">
+                        <div className="absolute inset-0 opacity-10">
+                          <Image
+                            src="/images/asset-0.png"
+                            alt="Route Map"
+                            layout="fill"
+                            objectFit="cover"
+                            priority
+                          />
+                        </div>
+                        <div className="w-[70%] aspect-square rounded-full flex items-center justify-center mb-3">
+                          <Image
+                            src={card.stamp}
+                            alt={card.name}
+                            width={100}
+                            height={100}
+                            className="w-full h-full"
+                          />
+                        </div>
                         <span className="text-sm text-[#515151] text-center">
-                          구름 올레
+                          {card.name}
                         </span>
                       </div>
                     </DialogTrigger>
                     <Dialog.Portal>
-                      <Dialog.Overlay className="fixed inset-0 bg-[#4A4A4A]/50 backdrop-blur-[20px] z-40" />
-                      <div className="fixed inset-0 flex items-center justify-center z-50">
+                      <Dialog.Overlay className="fixed inset-0 bg-[#4A4A4A]/50 backdrop-blur-[20px]" />
+                      <div className="fixed inset-0 flex items-center justify-center">
                         <div>
                           <div className="flex justify-center mt-8">
                             <DialogContent className="!border-none !rounded-none !bg-transparent !flex-row !items-center !shadow-none flex justify-center w-[85vw] max-w-md">
                               <div className="w-full p-3">
                                 <VisuallyHidden>
-                                  <DialogTitle>구름 올레</DialogTitle>
+                                  <DialogTitle>{card.name}</DialogTitle>
                                 </VisuallyHidden>
                                 <CardComponent
                                   trailName={MODAL_CARD_DATA.trailName}
@@ -113,18 +152,23 @@ export default function StampTile() {
                   className="bg-white rounded-2xl flex flex-col items-center py-4 w-[48%] min-h-[10rem] h-auto"
                 >
                   <div
-                    className={`w-[70%] aspect-square rounded-full flex items-center justify-center mb-3 ${
-                      isInactiveWithLock || isInactiveNoLock
-                        ? "bg-[#CFCFCF]"
-                        : ""
-                    }`}
+                    className={`w-[70%] aspect-square rounded-full flex items-center justify-center mb-3`}
+                    style={{ backgroundColor: getStampColor(card.locked) }}
                   >
-                    {isInactiveWithLock && (
+                    {isInactiveWithLock ? (
                       <LockIcon size={40} color="#515151" />
+                    ) : (
+                      <Image
+                        src={card.stamp}
+                        alt={card.name}
+                        width={100}
+                        height={100}
+                        className="w-full h-full opacity-50"
+                      />
                     )}
                   </div>
                   <span className="text-sm text-[#515151] text-center">
-                    구름 올레
+                    {card.name}
                   </span>
                 </div>
               );
