@@ -12,7 +12,7 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import CardComponent from "../card-component";
 import Image from "next/image";
-import { isGoormComplete } from "@/lib/localStorage";
+import { isGoormComplete, setGoormComplete } from "@/lib/localStorage";
 
 // Mock data for modal cards
 const MODAL_CARD_DATA = [
@@ -97,7 +97,6 @@ const CARD_DATA: CardData[] = [
     id: 2,
     name: "한라봉올레",
     stamp: "/images/g2.png",
-    alternateStamp: "/images/signin/stamp2.svg",
     locked: false,
     difficulty: 2,
   },
@@ -105,7 +104,6 @@ const CARD_DATA: CardData[] = [
     id: 3,
     name: "땅콩올레",
     stamp: "/images/signin/stamp3.svg",
-    alternateStamp: "/images/signin/stamp3.svg",
     locked: false,
     difficulty: 3,
   },
@@ -135,21 +133,26 @@ const CARD_DATA: CardData[] = [
 export default function StampTile() {
   const [stampData, setStampData] = useState<CardData[]>(CARD_DATA);
 
-  useEffect(() => {
-    // Check if goorm is completed
-    const isGoormDone = isGoormComplete();
+  const handleSetGoormComplete = () => {
+    setGoormComplete();
+    // Immediately update the stamp after setting localStorage
+    setStampData((prevData) =>
+      prevData.map((card) =>
+        card.id === 1 && card.alternateStamp
+          ? { ...card, stamp: card.alternateStamp }
+          : card
+      )
+    );
+  };
 
-    if (isGoormDone) {
+  useEffect(() => {
+    if (isGoormComplete()) {
       setStampData((prevData) =>
-        prevData.map((card) => {
-          if (card.alternateStamp) {
-            return {
-              ...card,
-              stamp: card.alternateStamp,
-            };
-          }
-          return card;
-        })
+        prevData.map((card) =>
+          card.id === 1 && card.alternateStamp
+            ? { ...card, stamp: card.alternateStamp }
+            : card
+        )
       );
     }
   }, []);
@@ -189,15 +192,7 @@ export default function StampTile() {
                   <Dialog.Root key={card.id}>
                     <DialogTrigger asChild>
                       <div className="bg-white rounded-2xl flex flex-col items-center py-4 cursor-pointer w-[48%] min-h-[10rem] h-auto relative overflow-hidden">
-                        <div className="absolute inset-0 opacity-10">
-                          <Image
-                            src="/images/asset-0.png"
-                            alt="Route Map"
-                            layout="fill"
-                            objectFit="cover"
-                            priority
-                          />
-                        </div>
+                        <div className="absolute inset-0 opacity-10"></div>
                         <div className="w-[70%] aspect-square rounded-full flex items-center justify-center mb-3">
                           <Image
                             src={card.stamp}
@@ -261,7 +256,7 @@ export default function StampTile() {
                   </Dialog.Root>
                 );
               }
-
+              console.log(card.stamp);
               return (
                 <div
                   key={card.id}

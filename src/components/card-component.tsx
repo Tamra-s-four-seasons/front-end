@@ -14,7 +14,7 @@ interface CardComponentProps {
   imageUrl?: string | null;
   size?: "normal" | "small" | "xsmall";
   isLocked?: boolean;
-  backgroundImage?: string;
+  backgroundImage?: string | null;
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({
