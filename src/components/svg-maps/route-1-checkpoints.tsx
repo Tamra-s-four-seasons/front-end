@@ -20,6 +20,21 @@ import { useRouter } from "next/navigation";
 import { setGoormComplete } from "@/lib/localStorage";
 import { toast } from "sonner";
 
+const MODELS = [
+  [
+    "https://cdn.advirtual.com/3d-viewer/jungbre-crested-gecko.glb",
+    "https://cdn.advirtual.com/3d-viewer/jungbre-crested-gecko.usdz",
+  ],
+  [
+    "https://cdn.advirtual.com/3d-viewer/KMU_Hechi.glb",
+    "https://cdn.advirtual.com/3d-viewer/KMU_Hechi.usdz",
+  ],
+  [
+    "https://cdn.advirtual.com/3d-viewer/jungbre-chameleon.glb",
+    "https://cdn.advirtual.com/3d-viewer/jungbre-chameleon.usdz",
+  ],
+];
+
 interface Route1CheckpointsProps {
   checkpoints: CheckpointData[];
 }
@@ -356,10 +371,8 @@ const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
                       // src={
                       //   "https://cdn.advirtual.com/3d-viewer/jungbre-crested-gecko.glb"
                       // }
-                      src={"https://cdn.advirtual.com/3d-viewer/KMU_Hechi.glb"}
-                      ios-src={
-                        "https://cdn.advirtual.com/3d-viewer/KMU_Hechi.usdz"
-                      }
+                      src={MODELS[selectedCheckpoint][0]}
+                      ios-src={MODELS[selectedCheckpoint][1]}
                       ar
                       ar-scale="auto"
                       environment-image="neutral"
