@@ -1,7 +1,10 @@
-import React from "react";
+
+import CarouselComponent from '@/components/carousel-component';
 
 const NewMissionPage = () => {
-  return <div>새 미션 페이지</div>;
+  return (
+    <CarouselComponent />
+  );
 };
 
 export default NewMissionPage;
