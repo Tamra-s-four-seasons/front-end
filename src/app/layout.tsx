@@ -16,14 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <QueryClientProvider>
-        <body className={cn(Pretendard.className, "antialiased")}>
+      <body className={cn(Pretendard.className, "antialiased")}>
+        <QueryClientProvider>
           <div className="max-w-[440px] mx-auto">
             <h1>Global Layout</h1>
             {children}
           </div>
-        </body>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </body>
     </html>
   );
 }
