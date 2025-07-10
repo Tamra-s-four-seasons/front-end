@@ -38,8 +38,8 @@ const HomePage = async () => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="mt-5">
-        <CardRoot className="rounded-2xl border-none bg-card p-5">
+      <div className="mt-5 h-[442px]">
+        <CardRoot className="rounded-2xl  h-[442px] border-none bg-card p-5">
           <CardBody className="p-0">
             <MissionBoard items={formattedMissions} />
           </CardBody>

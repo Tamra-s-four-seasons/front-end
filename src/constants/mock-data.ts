@@ -152,7 +152,7 @@ export const mockMissionData: MissionData[] = [
           "https://example.com/checkpoints/gapa2.jpg",
           "https://example.com/checkpoints/gapa3.jpg",
         ],
-        isComplete: false,
+        isComplete: true,
       },
       {
         checkpointId: "cp-003",
@@ -167,142 +167,142 @@ export const mockMissionData: MissionData[] = [
       },
     ],
   },
-  {
-    missionId: 2,
-    userId: "user456",
-    routeId: "busan-002",
-    routeKeyword: "바다내음",
+  // {
+  //   missionId: 2,
+  //   userId: "user456",
+  //   routeId: "busan-002",
+  //   routeKeyword: "바다내음",
 
-    routeName: "부산 올레",
-    isComplete: true,
-    checkpoints: [
-      {
-        checkpointId: "cp-004",
-        name: "흰여울문화마을",
-        latitude: 35.0979,
-        longitude: 129.013,
-        address: "부산광역시 영도구 영선동4가 1043",
-        description:
-          "바다를 내려다보는 계단식 마을로, 흰 파도가 아름다운 인스타그램 핫플레이스입니다.",
-        imgUrls: [
-          "https://example.com/checkpoints/hinyeoul1.jpg",
-          "https://example.com/checkpoints/hinyeoul2.jpg",
-        ],
-        isComplete: true,
-      },
-      {
-        checkpointId: "cp-005",
-        name: "40계단 문화관광테마거리",
-        latitude: 35.1284,
-        longitude: 129.0454,
-        address: "부산광역시 중구 중앙동4가 14-1",
-        description:
-          "6.25 피난민들의 애환이 서린 역사적 장소로, 현재는 문화와 예술이 살아 숨쉬는 거리입니다.",
-        imgUrls: [
-          "https://example.com/checkpoints/40stairs1.jpg",
-          "https://example.com/checkpoints/40stairs2.jpg",
-          "https://example.com/checkpoints/40stairs3.jpg",
-        ],
-        isComplete: true,
-      },
-      {
-        checkpointId: "cp-006",
-        name: "깡통시장 야시장",
-        latitude: 35.1013,
-        longitude: 129.0306,
-        address: "부산광역시 동구 중앙대로 179번길 25",
-        description:
-          "부산 대표 전통시장의 야시장으로, 다양한 길거리 음식과 생동감 넘치는 분위기를 즐길 수 있습니다.",
-        imgUrls: ["https://example.com/checkpoints/market1.jpg"],
-        isComplete: true,
-      },
-      {
-        checkpointId: "cp-007",
-        name: "깡통시장 야시장",
-        latitude: 35.1013,
-        longitude: 129.0306,
-        address: "부산광역시 동구 중앙대로 179번길 25",
-        description:
-          "부산 대표 전통시장의 야시장으로, 다양한 길거리 음식과 생동감 넘치는 분위기를 즐길 수 있습니다.",
-        imgUrls: ["https://example.com/checkpoints/market1.jpg"],
-        isComplete: true,
-      },
-    ],
-  },
-  {
-    missionId: 3,
-    userId: "user789",
-    routeId: "seoul-003",
-    routeName: "서울 올레",
-    routeKeyword: "한옥",
+  //   routeName: "부산 올레",
+  //   isComplete: true,
+  //   checkpoints: [
+  //     {
+  //       checkpointId: "cp-004",
+  //       name: "흰여울문화마을",
+  //       latitude: 35.0979,
+  //       longitude: 129.013,
+  //       address: "부산광역시 영도구 영선동4가 1043",
+  //       description:
+  //         "바다를 내려다보는 계단식 마을로, 흰 파도가 아름다운 인스타그램 핫플레이스입니다.",
+  //       imgUrls: [
+  //         "https://example.com/checkpoints/hinyeoul1.jpg",
+  //         "https://example.com/checkpoints/hinyeoul2.jpg",
+  //       ],
+  //       isComplete: true,
+  //     },
+  //     {
+  //       checkpointId: "cp-005",
+  //       name: "40계단 문화관광테마거리",
+  //       latitude: 35.1284,
+  //       longitude: 129.0454,
+  //       address: "부산광역시 중구 중앙동4가 14-1",
+  //       description:
+  //         "6.25 피난민들의 애환이 서린 역사적 장소로, 현재는 문화와 예술이 살아 숨쉬는 거리입니다.",
+  //       imgUrls: [
+  //         "https://example.com/checkpoints/40stairs1.jpg",
+  //         "https://example.com/checkpoints/40stairs2.jpg",
+  //         "https://example.com/checkpoints/40stairs3.jpg",
+  //       ],
+  //       isComplete: true,
+  //     },
+  //     {
+  //       checkpointId: "cp-006",
+  //       name: "깡통시장 야시장",
+  //       latitude: 35.1013,
+  //       longitude: 129.0306,
+  //       address: "부산광역시 동구 중앙대로 179번길 25",
+  //       description:
+  //         "부산 대표 전통시장의 야시장으로, 다양한 길거리 음식과 생동감 넘치는 분위기를 즐길 수 있습니다.",
+  //       imgUrls: ["https://example.com/checkpoints/market1.jpg"],
+  //       isComplete: true,
+  //     },
+  //     {
+  //       checkpointId: "cp-007",
+  //       name: "깡통시장 야시장",
+  //       latitude: 35.1013,
+  //       longitude: 129.0306,
+  //       address: "부산광역시 동구 중앙대로 179번길 25",
+  //       description:
+  //         "부산 대표 전통시장의 야시장으로, 다양한 길거리 음식과 생동감 넘치는 분위기를 즐길 수 있습니다.",
+  //       imgUrls: ["https://example.com/checkpoints/market1.jpg"],
+  //       isComplete: true,
+  //     },
+  //   ],
+  // },
+  // {
+  //   missionId: 3,
+  //   userId: "user789",
+  //   routeId: "seoul-003",
+  //   routeName: "서울 올레",
+  //   routeKeyword: "한옥",
 
-    isComplete: false,
-    checkpoints: [
-      {
-        checkpointId: "cp-007",
-        name: "익선동 한옥마을",
-        latitude: 37.5663,
-        longitude: 126.9997,
-        address: "서울특별시 종로구 익선동 166-71",
-        description:
-          "한옥을 개조한 카페와 상점들이 모여있는 힙한 골목으로, 전통과 현대가 조화를 이루는 곳입니다.",
-        imgUrls: [
-          "https://example.com/checkpoints/ikseon1.jpg",
-          "https://example.com/checkpoints/ikseon2.jpg",
-          "https://example.com/checkpoints/ikseon3.jpg",
-        ],
-        isComplete: true,
-      },
-      {
-        checkpointId: "cp-008",
-        name: "성수동 수제화 거리",
-        latitude: 37.5836,
-        longitude: 127.0024,
-        address: "서울특별시 성동구 성수동1가 13-47",
-        description:
-          "오래된 제화공장들이 모여있던 거리가 이제는 핸드메이드 문화의 중심지로 변신한 숨은 명소입니다.",
-        imgUrls: [
-          "https://example.com/checkpoints/seongsu1.jpg",
-          "https://example.com/checkpoints/seongsu2.jpg",
-        ],
-        isComplete: false,
-      },
-      {
-        checkpointId: "cp-009",
-        name: "망원시장 골목",
-        latitude: 37.5519,
-        longitude: 126.9748,
-        address: "서울특별시 마포구 망원동 394-13",
-        description:
-          "젊은 상인들이 운영하는 개성 넘치는 가게들과 맛집들이 즐비한 로컬 마켓의 매력을 느낄 수 있습니다.",
-        imgUrls: ["https://example.com/checkpoints/mangwon1.jpg"],
-        isComplete: false,
-      },
-      {
-        checkpointId: "cp-010",
-        name: "연남동 경의선숲길",
-        latitude: 37.5658,
-        longitude: 126.9254,
-        address: "서울특별시 마포구 연남동",
-        description:
-          "폐선된 경의선 철로를 공원으로 조성한 곳으로, 연남동의 핫플레이스와 연결되는 산책로입니다.",
-        imgUrls: [
-          "https://example.com/checkpoints/yeonnam1.jpg",
-          "https://example.com/checkpoints/yeonnam2.jpg",
-        ],
-        isComplete: false,
-      },
-      {
-        checkpointId: "cp-011",
-        name: "망원시장 골목",
-        latitude: 37.5519,
-        longitude: 126.9748,
-        address: "서울특별시 마포구 망원동 394-13",
-        description:
-          "젊은 상인들이 운영하는 개성 넘치는 가게들과 맛집들이 즐비한 로컬 마켓의 매력을 느낄 수 있습니다.",
-        imgUrls: ["https://example.com/checkpoints/mangwon1.jpg"],
-        isComplete: false,
-      },
-    ],
-  },
+  //   isComplete: false,
+  //   checkpoints: [
+  //     {
+  //       checkpointId: "cp-007",
+  //       name: "익선동 한옥마을",
+  //       latitude: 37.5663,
+  //       longitude: 126.9997,
+  //       address: "서울특별시 종로구 익선동 166-71",
+  //       description:
+  //         "한옥을 개조한 카페와 상점들이 모여있는 힙한 골목으로, 전통과 현대가 조화를 이루는 곳입니다.",
+  //       imgUrls: [
+  //         "https://example.com/checkpoints/ikseon1.jpg",
+  //         "https://example.com/checkpoints/ikseon2.jpg",
+  //         "https://example.com/checkpoints/ikseon3.jpg",
+  //       ],
+  //       isComplete: true,
+  //     },
+  //     {
+  //       checkpointId: "cp-008",
+  //       name: "성수동 수제화 거리",
+  //       latitude: 37.5836,
+  //       longitude: 127.0024,
+  //       address: "서울특별시 성동구 성수동1가 13-47",
+  //       description:
+  //         "오래된 제화공장들이 모여있던 거리가 이제는 핸드메이드 문화의 중심지로 변신한 숨은 명소입니다.",
+  //       imgUrls: [
+  //         "https://example.com/checkpoints/seongsu1.jpg",
+  //         "https://example.com/checkpoints/seongsu2.jpg",
+  //       ],
+  //       isComplete: false,
+  //     },
+  //     {
+  //       checkpointId: "cp-009",
+  //       name: "망원시장 골목",
+  //       latitude: 37.5519,
+  //       longitude: 126.9748,
+  //       address: "서울특별시 마포구 망원동 394-13",
+  //       description:
+  //         "젊은 상인들이 운영하는 개성 넘치는 가게들과 맛집들이 즐비한 로컬 마켓의 매력을 느낄 수 있습니다.",
+  //       imgUrls: ["https://example.com/checkpoints/mangwon1.jpg"],
+  //       isComplete: false,
+  //     },
+  //     {
+  //       checkpointId: "cp-010",
+  //       name: "연남동 경의선숲길",
+  //       latitude: 37.5658,
+  //       longitude: 126.9254,
+  //       address: "서울특별시 마포구 연남동",
+  //       description:
+  //         "폐선된 경의선 철로를 공원으로 조성한 곳으로, 연남동의 핫플레이스와 연결되는 산책로입니다.",
+  //       imgUrls: [
+  //         "https://example.com/checkpoints/yeonnam1.jpg",
+  //         "https://example.com/checkpoints/yeonnam2.jpg",
+  //       ],
+  //       isComplete: false,
+  //     },
+  //     {
+  //       checkpointId: "cp-011",
+  //       name: "망원시장 골목",
+  //       latitude: 37.5519,
+  //       longitude: 126.9748,
+  //       address: "서울특별시 마포구 망원동 394-13",
+  //       description:
+  //         "젊은 상인들이 운영하는 개성 넘치는 가게들과 맛집들이 즐비한 로컬 마켓의 매력을 느낄 수 있습니다.",
+  //       imgUrls: ["https://example.com/checkpoints/mangwon1.jpg"],
+  //       isComplete: false,
+  //     },
+  //   ],
+  // },
 ];
