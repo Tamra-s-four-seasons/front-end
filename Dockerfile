@@ -4,7 +4,7 @@ FROM node:20
 WORKDIR /app
 
 # 먼저 example/package.json과 package-lock.json만 복사 (캐시 최적화)
-COPY package*.json ./
+COPY example/package*.json ./
 
 # 의존성 설치
 RUN npm install
