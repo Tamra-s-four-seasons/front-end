@@ -128,8 +128,10 @@ export const mockMissionData: MissionData[] = [
       {
         checkpointId: "cp-001",
         name: "용머리해안",
-        latitude: 33.489,
-        longitude: 126.4983,
+        // latitude: 33.489,
+        latitude: 33.450223,
+        // longitude: 126.4983,
+        longitude: 126.918293,
         address: "제주특별자치도 서귀포시 안덕면 사계리 181",
         description:
           "화산암이 바다로 뻗어나간 모습이 용의 머리를 닮은 절경지로, 일몰이 아름다운 숨겨진 명소입니다.",

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --hostname 0.0.0.0",
+    "dev-ssl": "node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

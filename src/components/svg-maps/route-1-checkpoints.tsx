@@ -1,21 +1,105 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckpointData } from "@/constants/mock-data";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Script from "next/script";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
+  DrawerFooter,
 } from "@/components/ui/drawer";
 import ImageCarousel from "./image-carousel";
+import { Button } from "@vapor-ui/core";
 
 interface Route1CheckpointsProps {
   checkpoints: CheckpointData[];
 }
+
+// 위치 정보를 가져오는 훅
+const useLocation = () => {
+  const [location, setLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+    loading: true,
+    error: null as string | null,
+  });
+
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setLocation((prev) => ({
+        ...prev,
+        loading: false,
+        error: "Geolocation is not supported by this browser.",
+      }));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          loading: false,
+          error: null,
+        });
+      },
+      (error) => {
+        setLocation((prev) => ({
+          ...prev,
+          loading: false,
+          error: error.message,
+        }));
+      }
+    );
+  }, []);
+
+  return location;
+};
+
+// Haversine 공식을 사용한 거리 계산 함수 (미터 단위)
+const calculateDistance = (
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+): number => {
+  const R = 6371000; // 지구의 반지름 (미터)
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+
+  return distance;
+};
+
+// 10m 범위 내에 있는지 확인하는 함수
+const isWithinRange = (
+  userLat: number,
+  userLon: number,
+  targetLat: number,
+  targetLon: number,
+  rangeInMeters: number = 10
+): boolean => {
+  const distance = calculateDistance(userLat, userLon, targetLat, targetLon);
+  return distance <= rangeInMeters;
+};
 
 const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
   const isAllComplete = checkpoints.every(
@@ -25,14 +109,52 @@ const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
   const [selectedCheckpoint, setSelectedCheckpoint] = useState<number | null>(
     null
   );
+  const location = useLocation();
 
   const handleClickCheckpoint = (checkpoint: number) => {
     setSelectedCheckpoint(checkpoint);
     setIsOpen(true);
   };
 
+  const checkLocation = (checkpoint: number) => {
+    const { latitude, longitude } = checkpoints[checkpoint];
+
+    if (location.loading) {
+      console.log("위치 정보를 가져오는 중...");
+      return false;
+    }
+
+    if (location.error) {
+      console.error("위치 정보 오류:", location.error);
+      return false;
+    }
+
+    const isNearby = isWithinRange(
+      location.latitude,
+      location.longitude,
+      latitude,
+      longitude,
+      15 // 15미터 범위
+    );
+
+    const distance = calculateDistance(
+      location.latitude,
+      location.longitude,
+      latitude,
+      longitude
+    );
+
+    console.log(`거리: ${distance.toFixed(2)}m, 범위 내: ${isNearby}`);
+
+    return isNearby;
+  };
+
   return (
     <>
+      <Script
+        type="module"
+        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
+      ></Script>
       <div className="relative w-full aspect-[416/626] mx-auto">
         <Image
           src="/route-1-map.png"
@@ -115,12 +237,71 @@ const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
             <ImageCarousel
               imageUrls={checkpoints[selectedCheckpoint].imgUrls}
             />
-            <DrawerHeader>
-              <DrawerTitle>{checkpoints[selectedCheckpoint].name}</DrawerTitle>
-              <DrawerDescription>
-                {checkpoints[selectedCheckpoint].description}
+            <div className="h-4" />
+            <DrawerHeader className="flex flex-col gap-1 items-start p-0">
+              <DrawerTitle className="font-semibold text-[22px] leading-[28px]">
+                {checkpoints[selectedCheckpoint].name}
+              </DrawerTitle>
+              <DrawerDescription className="text-[18px] text-[#919191]">
+                {checkpoints[selectedCheckpoint].address}
               </DrawerDescription>
             </DrawerHeader>
+            <DrawerFooter className="p-0 flex flex-row justify-between py-4">
+              {!checkLocation(selectedCheckpoint) ? (
+                <>
+                  <Button className="w-full border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]">
+                    길찾기
+                  </Button>
+                  <Button
+                    className="w-full bg-primary text-white text-[22px] font-semibold rounded-[20px] h-[68px] !disabled:bg-[#F6F6F6] !disabled:text-[#707070] ![data-state=disabled]:bg-[#F6F6F6] ![data-state=disabled]:text-[#707070]"
+                    disabled
+                  >
+                    더가까이가세요
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button className="flex-1 border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]">
+                    길찾기
+                  </Button>
+                  <div className="model-viewer h-[68px] w-full mx-auto flex-2">
+                    <model-viewer
+                      className="h-full w-full"
+                      alt="3D Model"
+                      src={
+                        "https://cdn.advirtual.com/3d-viewer/jungbre-crested-gecko.glb"
+                      }
+                      ios-src={
+                        "https://cdn.advirtual.com/3d-viewer/jungbre-crested-gecko.usdz"
+                      }
+                      ar
+                      ar-scale="auto"
+                      environment-image="neutral"
+                      // tone-mapping="neutral"
+                      // shadow-intensity="1"
+                      camera-controls
+                      autoplay
+                      scale="0"
+                      ar-modes="scene-viewer quick-look"
+                      touch-action="pan-y"
+                      id="my-model-viewer"
+                    >
+                      <button
+                        slot="ar-button"
+                        id="ar-button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          alert("미션완료!");
+                        }}
+                        className="w-full bg-primary text-white text-[22px] font-semibold rounded-[20px] h-full"
+                      >
+                        미션완료하기
+                      </button>
+                    </model-viewer>
+                  </div>
+                </>
+              )}
+            </DrawerFooter>
           </DrawerContent>
         )}
       </Drawer>
