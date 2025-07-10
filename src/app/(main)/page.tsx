@@ -62,6 +62,7 @@ const HomePage = () => {
           </button>
         </model-viewer>
       </div> */}
+      <div className="h-28" />
     </div>
   );
 };
