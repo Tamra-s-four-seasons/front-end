@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Pretendard from "@/styles/local-font";
-import "@vapor-ui/core/styles.css";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 
