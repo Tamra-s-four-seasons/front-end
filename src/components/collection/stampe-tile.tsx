@@ -132,18 +132,6 @@ const CARD_DATA: CardData[] = [
 export default function StampTile() {
   const [stampData, setStampData] = useState<CardData[]>(CARD_DATA);
 
-  const handleSetGoormComplete = () => {
-    setGoormComplete();
-    // Immediately update the stamp after setting localStorage
-    setStampData((prevData) =>
-      prevData.map((card) =>
-        card.id === 1 && card.alternateStamp
-          ? { ...card, stamp: card.alternateStamp }
-          : card
-      )
-    );
-  };
-
   // 타일을 두 개씩 그룹화
   const groupedCards = stampData.reduce((acc, curr, i) => {
     if (i % 2 === 0) {
