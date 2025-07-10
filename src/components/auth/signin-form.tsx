@@ -128,14 +128,10 @@ const SigninForm = () => {
       </p>
       <div className="h-8 @md:h-2" />
       <Link href="/home">
-        <Button className="bg-blue-500 rounded-sm text-white">
-          카카오로 시작하기
-        </Button>
+        <Button className="w-full">카카오로 시작하기</Button>
       </Link>
       <div className="h-3 @md:h-5" />
-      <Button className="bg-blue-500 rounded-sm text-white">
-        구글로 시작하기
-      </Button>
+      <Button className="w-full">구글로 시작하기</Button>
       <div className="h-4 @md:h-5" />
       <p className="text-neutral-600 text-xs @md:text-sm">
         로그인함으로써{" "}
