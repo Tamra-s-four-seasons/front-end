@@ -16,8 +16,4 @@ spec:
           service:
             name: next-frontend
             port:
-              number: 3000
-  tls: # 이미 사용 중인 TLS 섹션 그대로 둡니다
-  - hosts:
-      - team6.goorm.training
-    secretName: team6-tls
+              number: 80
