@@ -15,11 +15,8 @@ COPY / .
 # 앱 빌드
 RUN npm run build
 
-# 정적 파일 서버 설치
-RUN npm install -g serve
-
 # 포트 노출
 EXPOSE 3000
 
-# 정적 앱 실행
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Next.js 앱 실행
+CMD ["npm", "start"]
