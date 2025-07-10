@@ -28,7 +28,7 @@ const mockTrails: TrailData[] = [
     backgroundImage: "/images/signin/background-1.png",
   },
   {
-    trailName: "바람 올레",
+    trailName: "한라봉 올레",
     location: "제주시 한림읍",
     distance: "3km",
     difficulty: 2,
