@@ -14,6 +14,7 @@ interface CardComponentProps {
   imageUrl?: string | null;
   size?: "normal" | "small" | "xsmall";
   isLocked?: boolean;
+  backgroundImage?: string;
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({
@@ -25,6 +26,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
   imageUrl,
   // size = "normal",
   isLocked = false,
+  backgroundImage,
 }) => {
   if (isLocked) {
     return (
@@ -58,7 +60,15 @@ const CardComponent: React.FC<CardComponentProps> = ({
           <Image
             src={imageUrl}
             alt={trailName}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-scale-down"
+            fill
+          />
+        ) : backgroundImage ? (
+          <Image
+            src={backgroundImage}
+            alt={trailName}
+            className="w-full h-full object-scale-down"
+            fill
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
