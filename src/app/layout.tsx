@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Pretendard from "@/styles/local-font";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
+import QueryClientProvider from "@/components/providers/query-client-provider";
 
 export const metadata: Metadata = {
   title: "탐라는사계절",
@@ -14,12 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body className={cn(Pretendard.className, "antialiased")}>
-        <div className="max-w-[440px] mx-auto">
-          <h1>Global Layout</h1>
-          {children}
-        </div>
+        <QueryClientProvider>
+          <div className="max-w-[440px] mx-auto">{children}</div>
+        </QueryClientProvider>
       </body>
     </html>
   );
