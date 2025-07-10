@@ -196,11 +196,16 @@ const CarouselComponent: React.FC = () => {
       </div>
 
       <div className="flex justify-center px-4">
-        <Link href="/missions" className="w-[76%] max-w-md">
-          <button className="w-full bg-[#2DDE72] text-white text-m font-bold py-4 px-8 rounded-[22px] hover:bg-green-500 transition-colors duration-300">
-            지도 생성하기
-          </button>
-        </Link>
+        {selectedIndex < 3 && (
+          <Link
+            href={`/missions/${selectedIndex + 1}`}
+            className="w-[76%] max-w-md"
+          >
+            <button className="w-full bg-[#2DDE72] text-white text-m font-bold py-4 px-8 rounded-[22px] hover:bg-green-500 transition-colors duration-300">
+              지도 생성하기
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

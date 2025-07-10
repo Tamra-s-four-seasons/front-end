@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { LockIcon } from "@vapor-ui/icons";
 import { X } from "lucide-react";
 import {
@@ -13,52 +13,146 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import CardComponent from "../card-component";
 import Image from "next/image";
 
-// Mock data for modal card
-const MODAL_CARD_DATA = {
-  trailName: "구름 올레",
-  location: "제주도 서귀포시",
-  distance: "7.4km",
-  difficulty: 3,
-  tags: ["중급", "계곡", "숲길"],
-  imageUrl: "/images/asset-0.png",
-  backgroundImage: "/images/asset-0.png",
-};
+// Mock data for modal cards
+const MODAL_CARD_DATA = [
+  {
+    trailName: "구름 올레",
+    location: "서귀포시 성산읍",
+    distance: "140m",
+    difficulty: 1,
+    tags: ["해커톤", "열정"],
+    imageUrl: "/images/a1.png",
+    backgroundImage: "/images/a1.png",
+  },
+  {
+    trailName: "바람 올레",
+    location: "제주시 한림읍",
+    distance: "3km",
+    difficulty: 2,
+    tags: ["해안도로", "경치"],
+    imageUrl: "/images/a2.png",
+    backgroundImage: "/images/a2.png",
+  },
+  {
+    trailName: "땅콩 올레",
+    location: "제주시 우도면",
+    distance: "14.24km",
+    difficulty: 3,
+    tags: ["낭만", "일출"],
+    imageUrl: "/images/a3.png",
+    backgroundImage: "/images/a3.png",
+  },
+  {
+    id: 4,
+    trailName: "구름올레",
+    location: "제주도 서귀포시",
+    distance: "7.4km",
+    difficulty: 0,
+    tags: ["초급", "계곡", "숲길"],
+    imageUrl: "/images/a2.png",
+    backgroundImage: "/images/a3.png",
+  },
+  {
+    id: 5,
+    trailName: "한라봉올레",
+    location: "제주도 서귀포시",
+    distance: "8.2km",
+    difficulty: 0,
+    tags: ["중급", "오름", "해안길"],
+    imageUrl: "/images/a2.png",
+    backgroundImage: "/images/a1.png",
+  },
+  {
+    id: 6,
+    trailName: "땅콩올레",
+    location: "제주도 서귀포시",
+    distance: "9.1km",
+    difficulty: 0,
+    tags: ["상급", "산길", "절경"],
+    imageUrl: "/images/a1.png",
+    backgroundImage: "/images/a1.png",
+  },
+];
 
-// locked: true = 비활성+자물쇠, locked: false = 활성, locked: null = 비활성+자물쇠 없음
-const CARD_DATA = [
+interface CardData {
+  id: number;
+  name: string;
+  stamp: string;
+  alternateStamp?: string;
+  locked: boolean;
+  difficulty: number;
+}
+
+const CARD_DATA: CardData[] = [
   {
     id: 1,
     name: "구름올레",
-    stamp: "/images/signin/stamp1.svg",
+    stamp: "/images/g1.png",
+    alternateStamp: "/images/signin/stamp1.svg",
     locked: false,
+    difficulty: 1,
   },
   {
     id: 2,
     name: "한라봉올레",
-    stamp: "/images/signin/stamp2.svg",
-    locked: true,
+    stamp: "/images/g2.png",
+    locked: false,
+    difficulty: 2,
   },
-  { id: 3, name: "땅콩올레", stamp: "/images/signin/stamp3.svg", locked: null },
-  { id: 4, name: "구름올레", stamp: "/images/signin/stamp1.svg", locked: true },
+  {
+    id: 3,
+    name: "땅콩올레",
+    stamp: "/images/signin/stamp3.svg",
+    locked: false,
+    difficulty: 3,
+  },
+  {
+    id: 4,
+    name: "구름올레",
+    stamp: "/images/signin/stamp1.svg",
+    locked: true,
+    difficulty: 0,
+  },
   {
     id: 5,
     name: "한라봉올레",
     stamp: "/images/signin/stamp2.svg",
-    locked: false,
+    locked: true,
+    difficulty: 0,
   },
-  { id: 6, name: "땅콩올레", stamp: "/images/signin/stamp3.svg", locked: true },
+  {
+    id: 6,
+    name: "땅콩올레",
+    stamp: "/images/signin/stamp3.svg",
+    locked: true,
+    difficulty: 0,
+  },
 ];
 
 export default function StampTile() {
+  const [stampData, setStampData] = useState<CardData[]>(CARD_DATA);
+
+  const handleSetGoormComplete = () => {
+    setGoormComplete();
+    // Immediately update the stamp after setting localStorage
+    setStampData((prevData) =>
+      prevData.map((card) =>
+        card.id === 1 && card.alternateStamp
+          ? { ...card, stamp: card.alternateStamp }
+          : card
+      )
+    );
+  };
+
   // 타일을 두 개씩 그룹화
-  const groupedCards = CARD_DATA.reduce((acc, curr, i) => {
+  const groupedCards = stampData.reduce((acc, curr, i) => {
     if (i % 2 === 0) {
       acc.push([curr]);
     } else {
       acc[acc.length - 1].push(curr);
     }
     return acc;
-  }, [] as Array<typeof CARD_DATA>);
+  }, [] as CardData[][]);
 
   const getStampColor = (locked: boolean | null) => {
     if (locked === false) return "#EAFCF1"; // 성공 - 초록색 배경
@@ -67,6 +161,8 @@ export default function StampTile() {
 
   return (
     <div className="flex flex-col items-center bg-[#F6F6F6] p-[5%] mt-[20px] rounded-2xl">
+      {/* Add development button - you can remove this in production */}
+
       <div className="flex flex-col w-full max-w-[400px] h-auto min-h-[581px]">
         {groupedCards.map((row, rowIndex) => (
           <div
@@ -117,12 +213,22 @@ export default function StampTile() {
                                   <DialogTitle>{card.name}</DialogTitle>
                                 </VisuallyHidden>
                                 <CardComponent
-                                  trailName={MODAL_CARD_DATA.trailName}
-                                  location={MODAL_CARD_DATA.location}
-                                  distance={MODAL_CARD_DATA.distance}
-                                  difficulty={MODAL_CARD_DATA.difficulty}
-                                  tags={MODAL_CARD_DATA.tags}
-                                  imageUrl={MODAL_CARD_DATA.imageUrl}
+                                  trailName={
+                                    MODAL_CARD_DATA[card.id - 1].trailName
+                                  }
+                                  location={
+                                    MODAL_CARD_DATA[card.id - 1].location
+                                  }
+                                  distance={
+                                    MODAL_CARD_DATA[card.id - 1].distance
+                                  }
+                                  difficulty={
+                                    MODAL_CARD_DATA[card.id - 1].difficulty
+                                  }
+                                  tags={MODAL_CARD_DATA[card.id - 1].tags}
+                                  imageUrl={
+                                    MODAL_CARD_DATA[card.id - 1].imageUrl
+                                  }
                                   size="small"
                                 />
                               </div>

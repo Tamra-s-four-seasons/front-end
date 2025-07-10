@@ -37,7 +37,7 @@ const MissionBoardItem = ({
 }: MissionBoardItemProps) => {
   return (
     <Link href={`/missions/${missionId}`}>
-      <div className="flex p-5 justify-between items-center bg-white rounded-xl">
+      <div className="flex  p-5 justify-between items-center bg-white rounded-xl">
         <div className="flex flex-col gap-1.5">
           <Badge className="bg-secondary text-primary w-fit rounded-full">
             {keyword}

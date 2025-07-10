@@ -14,7 +14,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="h-[22.29px]" />
       <h1 className="text-foreground text-[26px] leading-12 font-bold h-12">
-        구름님의 OOO
+        구름님의 지도
       </h1>
       <div className="h-[21.16px]" />
       <Navigation />
