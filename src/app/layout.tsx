@@ -16,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={cn(Pretendard.className, "antialiased")}>
-        <h1>Global Layout</h1>
-        {children}
+        <div className="max-w-[440px] mx-auto">
+          <h1>Global Layout</h1>
+          {children}
+        </div>
       </body>
     </html>
   );
