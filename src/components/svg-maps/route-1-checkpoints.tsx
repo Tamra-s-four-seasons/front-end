@@ -11,6 +11,7 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
+import ImageCarousel from "./image-carousel";
 
 interface Route1CheckpointsProps {
   checkpoints: CheckpointData[];
@@ -109,7 +110,11 @@ const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
       </div>
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
         {selectedCheckpoint !== null && (
-          <DrawerContent className="max-w-[440px] mx-auto !rounded-t-[30px] !border-t-[0px] bg-white">
+          <DrawerContent className="max-w-[440px] mx-auto !rounded-t-[30px] !border-t-[0px] bg-white px-5">
+            <div className="h-8" />
+            <ImageCarousel
+              imageUrls={checkpoints[selectedCheckpoint].imgUrls}
+            />
             <DrawerHeader>
               <DrawerTitle>{checkpoints[selectedCheckpoint].name}</DrawerTitle>
               <DrawerDescription>
