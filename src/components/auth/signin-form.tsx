@@ -12,9 +12,9 @@ import { setAuthUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 
 const DESCRIPTIONS = [
-  ["버그 투성이인", "AI가 생성한 코드에 지칠때"],
-  ["커스텀하기 어려운", "라이브러리 의존성에 지칠때"],
-  ["내가 생각해도 너~무 잘 짠", "내 코드로 부수익을 올리고 싶을때"],
+  [["버튼 하나로 ", "탐험을 시작", "해요"], "숨은 제주가 열립니다"],
+  [["거리와 난이도로 ", "루트 추천", ""], "코스를 따라 걸어보세요"],
+  [["핀을 눌러 ", "장소를 확인", "해요"], "숨겨진 포인트를 발견해요"],
 ];
 
 const CAROUSEL_ITEMS = [SignIn1, SignIn2, SignIn3];
@@ -153,7 +153,11 @@ const SigninForm = () => {
                 className="text-center mb-[2vh] font-bold"
                 style={{ fontSize: "clamp(0.875rem, 2vw, 1.125rem)" }}
               >
-                {DESCRIPTIONS[currentIndex][0]} <br />
+                {DESCRIPTIONS[currentIndex][0][0]}
+                <span className="text-[#2DDE72]">
+                  {DESCRIPTIONS[currentIndex][0][1]}
+                </span>
+                {DESCRIPTIONS[currentIndex][0][2]} <br />
                 {DESCRIPTIONS[currentIndex][1]}
               </motion.p>
             </AnimatePresence>
