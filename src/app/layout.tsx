@@ -15,13 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body className={cn(Pretendard.className, "antialiased")}>
         <QueryClientProvider>
-          <div className="max-w-[440px] mx-auto">
-            <h1>Global Layout</h1>
-            {children}
-          </div>
+          <div className="max-w-[440px] mx-auto">{children}</div>
         </QueryClientProvider>
       </body>
     </html>
