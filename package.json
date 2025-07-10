@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/model-viewer": "^4.1.0",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@vapor-ui/core": "^0.3.0",
     "class-variance-authority": "^0.7.1",
@@ -18,7 +19,8 @@
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "three": "^0.172.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
