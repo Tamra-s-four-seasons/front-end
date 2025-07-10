@@ -27,7 +27,7 @@ const HomePage = async () => {
   const formattedMissions = missions.map((mission) => ({
     missionId: mission.missionId.toString(),
     keyword: mission.routeKeyword,
-    description: mission.routeKeyword,
+    description: mission.description,
     routeName: mission.routeName,
     completedCheckpointCnt: mission.checkpoints.filter(
       (checkpoint) => checkpoint.isComplete
@@ -41,7 +41,7 @@ const HomePage = async () => {
       <div className="mt-5 h-[442px]">
         <CardRoot className="rounded-2xl  h-[442px] border-none bg-card p-5">
           <CardBody className="p-0">
-            <MissionBoard items={formattedMissions} />
+            <MissionBoard items={[formattedMissions[0]]} />
           </CardBody>
         </CardRoot>
         {/* <Script
