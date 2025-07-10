@@ -20,7 +20,7 @@ const MissionBoard = ({ items }: MissionBoardProps) => {
 
 interface MissionBoardItemProps {
   missionId: string;
-  keyword: string;
+  keyword: string[];
   description: string;
   routeName: string;
   completedCheckpointCnt: number;
@@ -39,9 +39,16 @@ const MissionBoardItem = ({
     <Link href={`/missions/${missionId}`}>
       <div className="flex  p-5 justify-between items-center bg-white rounded-xl">
         <div className="flex flex-col gap-1.5">
-          <Badge className="bg-secondary text-primary w-fit rounded-full">
-            {keyword}
-          </Badge>
+          <div className="flex gap-1.5 items-center">
+            {keyword.map((item, index) => (
+              <Badge
+                key={index}
+                className="bg-secondary text-primary w-fit rounded-full"
+              >
+                {item}
+              </Badge>
+            ))}
+          </div>
           <h1 className="text-lg font-bold">{routeName}</h1>
           <h2 className="text-sm text-muted-foreground">{description}</h2>
         </div>

@@ -17,6 +17,7 @@ import ImageCarousel from "./image-carousel";
 import { Button } from "@vapor-ui/core";
 import { ChevronLeftOutlineIcon } from "@vapor-ui/icons";
 import { useRouter } from "next/navigation";
+import { setGoormComplete } from "@/lib/localStorage";
 
 interface Route2CheckpointsProps {
   checkpoints: CheckpointData[];
@@ -104,7 +105,9 @@ const isWithinRange = (
 };
 
 const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
-  const isAllComplete = checkpoints.every(
+  const [localCheckpoints, setLocalCheckpoints] =
+    useState<CheckpointData[]>(checkpoints);
+  const isAllComplete = localCheckpoints.every(
     (checkpoint) => checkpoint.isComplete
   );
   const [isOpen, setIsOpen] = useState(false);
@@ -118,7 +121,11 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
     setSelectedCheckpoint(checkpoint);
     setIsOpen(true);
   };
-
+  useEffect(() => {
+    if (isAllComplete) {
+      alert("지도가 완성되었어요");
+    }
+  }, [isAllComplete]);
   const checkLocation = (checkpoint: number) => {
     const { latitude, longitude } = checkpoints[checkpoint];
 
@@ -137,7 +144,7 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
       location.longitude,
       latitude,
       longitude,
-      15 // 15미터 범위
+      30 // 15미터 범위
     );
 
     const distance = calculateDistance(
@@ -215,8 +222,9 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             strokeWidth="3"
             className={cn(
               "transition-all duration-300",
-              checkpoints[0].isComplete && "stroke-[#FD7563]",
-              !checkpoints[0].isComplete && "stroke-[#6E6E6E] animate-pulse"
+              localCheckpoints[0].isComplete && "stroke-[#FD7563]",
+              !localCheckpoints[0].isComplete &&
+                "stroke-[#6E6E6E] animate-pulse"
             )}
           />
           <path
@@ -225,8 +233,8 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(0)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[0].isComplete && "fill-[#FD7563]",
-              !checkpoints[0].isComplete && "fill-[#6E6E6E] animate-pulse"
+              localCheckpoints[0].isComplete && "fill-[#FD7563]",
+              !localCheckpoints[0].isComplete && "fill-[#6E6E6E] animate-pulse"
             )}
           />
           <circle
@@ -239,8 +247,9 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(1)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[0].isComplete && "stroke-[#FD7563]",
-              !checkpoints[0].isComplete && "stroke-[#6E6E6E] animate-pulse"
+              localCheckpoints[1].isComplete && "stroke-[#FD7563]",
+              !localCheckpoints[1].isComplete &&
+                "stroke-[#6E6E6E] animate-pulse"
             )}
           />
           <path
@@ -249,8 +258,8 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(1)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[1].isComplete && "fill-[#FD7563]",
-              !checkpoints[1].isComplete && "fill-[#6E6E6E] animate-pulse"
+              localCheckpoints[1].isComplete && "fill-[#FD7563]",
+              !localCheckpoints[1].isComplete && "fill-[#6E6E6E] animate-pulse"
             )}
           />
           <circle
@@ -263,8 +272,9 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(2)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[2].isComplete && "stroke-[#FD7563]",
-              !checkpoints[2].isComplete && "stroke-[#6E6E6E] animate-pulse"
+              localCheckpoints[2].isComplete && "stroke-[#FD7563]",
+              !localCheckpoints[2].isComplete &&
+                "stroke-[#6E6E6E] animate-pulse"
             )}
           />
           <path
@@ -273,8 +283,8 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(2)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[2].isComplete && "fill-[#FD7563]",
-              !checkpoints[2].isComplete && "fill-[#6E6E6E] animate-pulse"
+              localCheckpoints[2].isComplete && "fill-[#FD7563]",
+              !localCheckpoints[2].isComplete && "fill-[#6E6E6E] animate-pulse"
             )}
           />
           <circle
@@ -287,8 +297,9 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(3)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[2].isComplete && "stroke-[#FD7563]",
-              !checkpoints[2].isComplete && "stroke-[#6E6E6E] animate-pulse"
+              localCheckpoints[3].isComplete && "stroke-[#FD7563]",
+              !localCheckpoints[3].isComplete &&
+                "stroke-[#6E6E6E] animate-pulse"
             )}
           />
           <path
@@ -297,8 +308,8 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             onClick={() => handleClickCheckpoint(3)}
             className={cn(
               "transition-all duration-300",
-              checkpoints[3].isComplete && "fill-[#FD7563]",
-              !checkpoints[3].isComplete && "fill-[#6E6E6E] animate-pulse"
+              localCheckpoints[3].isComplete && "fill-[#FD7563]",
+              !localCheckpoints[3].isComplete && "fill-[#6E6E6E] animate-pulse"
             )}
           />
         </svg>
@@ -322,14 +333,14 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
             <DrawerFooter className="p-0 flex flex-row justify-between py-4">
               {!checkLocation(selectedCheckpoint) ? (
                 <>
-                  <Button className="w-full border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]">
+                  <Button className="flex-1 w-full border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]">
                     길찾기
                   </Button>
                   <Button
-                    className="w-full bg-primary text-white text-[22px] font-semibold rounded-[20px] h-[68px] !disabled:bg-[#F6F6F6] !disabled:text-[#707070] ![data-state=disabled]:bg-[#F6F6F6] ![data-state=disabled]:text-[#707070]"
+                    className="flex-2 w-full bg-primary text-white text-[22px] font-semibold rounded-[20px] h-[68px] !disabled:bg-[#F6F6F6] !disabled:text-[#707070] ![data-state=disabled]:bg-[#F6F6F6] ![data-state=disabled]:text-[#707070]"
                     disabled
                   >
-                    더가까이가세요
+                    미션완료하기
                   </Button>
                 </>
               ) : (
@@ -364,7 +375,14 @@ const Route2Checkpoints = ({ checkpoints }: Route2CheckpointsProps) => {
                         id="ar-button"
                         onClick={(e) => {
                           e.preventDefault();
-                          alert("미션완료!");
+                          setLocalCheckpoints((prev) =>
+                            prev.map((checkpoint, index) =>
+                              index === selectedCheckpoint
+                                ? { ...checkpoint, isComplete: true }
+                                : checkpoint
+                            )
+                          );
+                          setGoormComplete();
                         }}
                         className="w-full bg-primary text-white text-[22px] font-semibold rounded-[20px] h-full"
                       >

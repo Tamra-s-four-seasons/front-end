@@ -19,10 +19,10 @@ const MissionMap = ({ missionId }: MissionMapProps) => {
       {mission.routeId === "jeju-001" && (
         <Route1Checkpoints checkpoints={mission?.checkpoints} />
       )}
-      {mission.routeId === "busan-002" && (
+      {mission.routeId === "jeju-002" && (
         <Route2Checkpoints checkpoints={mission?.checkpoints} />
       )}
-      {mission.routeId === "seoul-003" && (
+      {mission.routeId === "jeju-003" && (
         <Route3Checkpoints checkpoints={mission?.checkpoints} />
       )}
     </div>
