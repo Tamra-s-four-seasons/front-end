@@ -33,80 +33,104 @@ const CARD_DATA = [
 ];
 
 export default function StampTile() {
+  // 타일을 두 개씩 그룹화
+  const groupedCards = CARD_DATA.reduce((acc, curr, i) => {
+    if (i % 2 === 0) {
+      acc.push([curr]);
+    } else {
+      acc[acc.length - 1].push(curr);
+    }
+    return acc;
+  }, [] as Array<typeof CARD_DATA>);
+
   return (
-    <div className="flex flex-col items-center bg-[#F6F6F6] p-[20px] mt-[20px] rounded-2xl">
-      <div className="grid grid-cols-2 grid-rows-3 gap-5 max-w-[440px] w-full px-2">
-        {CARD_DATA.map((card) => {
-          const isActive = card.locked === false;
-          const isInactiveWithLock = card.locked === true;
-          const isInactiveNoLock = card.locked === null;
+    <div className="flex flex-col items-center bg-[#F6F6F6] p-[5%] mt-[20px] rounded-2xl">
+      <div className="flex flex-col w-full max-w-[400px] h-auto min-h-[581px]">
+        {groupedCards.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="flex justify-center gap-[6%] mb-[15px] last:mb-0"
+          >
+            {row.map((card) => {
+              const isActive = card.locked === false;
+              const isInactiveWithLock = card.locked === true;
+              const isInactiveNoLock = card.locked === null;
 
-          if (isActive) {
-            return (
-              <Dialog.Root key={card.id}>
-                <DialogTrigger asChild>
-                  <div className="bg-white rounded-2xl flex flex-col items-center py-6 cursor-pointer">
-                    <div className="w-24 h-24 rounded-full flex items-center justify-center mb-3 bg-[#EAFCF1]"></div>
-                    <span className="text-sm text-[#515151] text-center">
-                      구름 올레
-                    </span>
-                  </div>
-                </DialogTrigger>
-                <Dialog.Portal>
-                  <Dialog.Overlay className="fixed inset-0 bg-[#4A4A4A]/50 backdrop-blur-[20px] z-40" />
-                  <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div>
-                      <div className="flex justify-center mt-8">
-                        <DialogContent className="!border-none !rounded-none !bg-transparent !flex-row !items-center !shadow-none flex justify-center w-[85vw] max-w-md">
-                          <div className="w-full  p-3">
-                            <VisuallyHidden>
-                              <DialogTitle>구름 올레</DialogTitle>
-                            </VisuallyHidden>
-                            <CardComponent
-                              trailName={MODAL_CARD_DATA.trailName}
-                              location={MODAL_CARD_DATA.location}
-                              distance={MODAL_CARD_DATA.distance}
-                              difficulty={MODAL_CARD_DATA.difficulty}
-                              tags={MODAL_CARD_DATA.tags}
-                              imageUrl={MODAL_CARD_DATA.imageUrl}
-                              size="small"
-                            />
-                          </div>
-                        </DialogContent>
-                        <Dialog.Close asChild>
-                          <button
-                            className="mt-[600px] w-16 h-16 bg-[#4A4A4A] rounded-full flex items-center justify-center hover:bg-[#3A3A3A] transition-colors cursor-pointer"
-                            aria-label="닫기"
-                          >
-                            <X className="w-6 h-6 text-white" strokeWidth={2} />
-                          </button>
-                        </Dialog.Close>
+              if (isActive) {
+                return (
+                  <Dialog.Root key={card.id}>
+                    <DialogTrigger asChild>
+                      <div className="bg-white rounded-2xl flex flex-col items-center py-4 cursor-pointer w-[48%] min-h-[10rem] h-auto">
+                        <div className="w-[70%] aspect-square rounded-full flex items-center justify-center mb-3 bg-[#EAFCF1]"></div>
+                        <span className="text-sm text-[#515151] text-center">
+                          구름 올레
+                        </span>
                       </div>
-                    </div>
-                  </div>
-                </Dialog.Portal>
-              </Dialog.Root>
-            );
-          }
+                    </DialogTrigger>
+                    <Dialog.Portal>
+                      <Dialog.Overlay className="fixed inset-0 bg-[#4A4A4A]/50 backdrop-blur-[20px] z-40" />
+                      <div className="fixed inset-0 flex items-center justify-center z-50">
+                        <div>
+                          <div className="flex justify-center mt-8">
+                            <DialogContent className="!border-none !rounded-none !bg-transparent !flex-row !items-center !shadow-none flex justify-center w-[85vw] max-w-md">
+                              <div className="w-full p-3">
+                                <VisuallyHidden>
+                                  <DialogTitle>구름 올레</DialogTitle>
+                                </VisuallyHidden>
+                                <CardComponent
+                                  trailName={MODAL_CARD_DATA.trailName}
+                                  location={MODAL_CARD_DATA.location}
+                                  distance={MODAL_CARD_DATA.distance}
+                                  difficulty={MODAL_CARD_DATA.difficulty}
+                                  tags={MODAL_CARD_DATA.tags}
+                                  imageUrl={MODAL_CARD_DATA.imageUrl}
+                                  size="small"
+                                />
+                              </div>
+                            </DialogContent>
+                            <Dialog.Close asChild>
+                              <button
+                                className="mt-[60vh] w-12 h-12 sm:w-16 sm:h-16 bg-[#4A4A4A] rounded-full flex items-center justify-center hover:bg-[#3A3A3A] transition-colors cursor-pointer"
+                                aria-label="닫기"
+                              >
+                                <X
+                                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+                                  strokeWidth={2}
+                                />
+                              </button>
+                            </Dialog.Close>
+                          </div>
+                        </div>
+                      </div>
+                    </Dialog.Portal>
+                  </Dialog.Root>
+                );
+              }
 
-          return (
-            <div
-              key={card.id}
-              className="bg-white rounded-2xl flex flex-col items-center py-6"
-            >
-              <div
-                className={`w-24 h-24 rounded-full flex items-center justify-center mb-3 ${
-                  isInactiveWithLock || isInactiveNoLock ? "bg-[#CFCFCF]" : ""
-                }`}
-              >
-                {isInactiveWithLock && <LockIcon size={40} color="#515151" />}
-              </div>
-              <span className="text-sm text-[#515151] text-center">
-                구름 올레
-              </span>
-            </div>
-          );
-        })}
+              return (
+                <div
+                  key={card.id}
+                  className="bg-white rounded-2xl flex flex-col items-center py-4 w-[48%] min-h-[10rem] h-auto"
+                >
+                  <div
+                    className={`w-[70%] aspect-square rounded-full flex items-center justify-center mb-3 ${
+                      isInactiveWithLock || isInactiveNoLock
+                        ? "bg-[#CFCFCF]"
+                        : ""
+                    }`}
+                  >
+                    {isInactiveWithLock && (
+                      <LockIcon size={40} color="#515151" />
+                    )}
+                  </div>
+                  <span className="text-sm text-[#515151] text-center">
+                    구름 올레
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );

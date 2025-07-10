@@ -21,7 +21,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {children}
       <Link
         href="/new"
-        className="bg-primary h-[85px] flex justify-center items-center rounded-t-[50px] text-white gap-1.5 -mx-5 fixed bottom-0 w-full"
+        className="bg-primary h-[85px] flex justify-center items-center rounded-t-[50px] text-white gap-1.5 fixed bottom-0 w-full max-w-[450px] left-1/2 -translate-x-1/2 mx-auto"
       >
         <Text typography="heading4" className="font-semibold text-white">
           새 미션 등록하기

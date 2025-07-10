@@ -22,7 +22,7 @@ const mockTrails: TrailData[] = [
     location: "서귀포시 성산읍",
     distance: "140m",
     difficulty: 1,
-    tags: ["낭만", "일출"],
+    tags: ["해커톤", "열정"],
     imageUrl: null,
   },
   {
