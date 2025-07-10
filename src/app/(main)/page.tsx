@@ -1,13 +1,48 @@
 import React from "react";
-import Link from "next/link";
-import Script from "next/script";
+import { CardRoot, CardBody } from "@vapor-ui/core";
+import MissionBoard from "@/components/home/mission-board";
+
+interface MissionBoardItemProps {
+  keyword: string;
+  description: string;
+  routeName: string;
+  completedCheckpointCnt: number;
+  totalCheckpointCnt: number;
+}
+
+const mockMissionItems: MissionBoardItemProps[] = [
+  {
+    keyword: "키워드",
+    description: "지도 한 줄 설명",
+    routeName: "지도 이름",
+    completedCheckpointCnt: 1,
+    totalCheckpointCnt: 3,
+  },
+  {
+    keyword: "키워드",
+    description: "지도 한 줄 설명",
+    routeName: "지도 이름",
+    completedCheckpointCnt: 2,
+    totalCheckpointCnt: 3,
+  },
+  {
+    keyword: "키워드",
+    description: "지도 한 줄 설명",
+    routeName: "지도 이름",
+    completedCheckpointCnt: 1,
+    totalCheckpointCnt: 4,
+  },
+];
 
 const HomePage = () => {
   return (
-    <>
-      <h1 className="text-accent">홈페이지</h1>
-      <Link href="/new">새 미션</Link>
-      <Script
+    <div className="mt-5">
+      <CardRoot className="rounded-2xl border-none bg-card p-5">
+        <CardBody className="p-0">
+          <MissionBoard items={mockMissionItems} />
+        </CardBody>
+      </CardRoot>
+      {/* <Script
         type="module"
         src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
       ></Script>
@@ -26,8 +61,8 @@ const HomePage = () => {
             View in AR
           </button>
         </model-viewer>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 };
 
