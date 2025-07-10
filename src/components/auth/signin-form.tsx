@@ -58,6 +58,7 @@ const SigninForm = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+
     // 테스트용 간단한 로그인 처리
     if (loginData.username && loginData.password) {
       setAuthUser({

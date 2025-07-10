@@ -133,19 +133,8 @@ const CARD_DATA: CardData[] = [
 export default function StampTile() {
   const [stampData, setStampData] = useState<CardData[]>(CARD_DATA);
 
-  const handleSetGoormComplete = () => {
-    setGoormComplete();
-    // Immediately update the stamp after setting localStorage
-    setStampData((prevData) =>
-      prevData.map((card) =>
-        card.id === 1 && card.alternateStamp
-          ? { ...card, stamp: card.alternateStamp }
-          : card
-      )
-    );
-  };
-
   useEffect(() => {
+    // 초기 상태 설정
     if (isGoormComplete()) {
       setStampData((prevData) =>
         prevData.map((card) =>
@@ -155,6 +144,30 @@ export default function StampTile() {
         )
       );
     }
+
+    // 로컬스토리지 변경 감지 함수
+    const handleStorageChange = (e: StorageEvent) => {
+      // goorm 관련 키가 변경되었을 때만 처리
+      if (e.key && e.key.includes("goorm")) {
+        if (isGoormComplete()) {
+          setStampData((prevData) =>
+            prevData.map((card) =>
+              card.id === 1 && card.alternateStamp
+                ? { ...card, stamp: card.alternateStamp }
+                : card
+            )
+          );
+        }
+      }
+    };
+
+    // 이벤트 리스너 등록
+    window.addEventListener("storage", handleStorageChange);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   // 타일을 두 개씩 그룹화
