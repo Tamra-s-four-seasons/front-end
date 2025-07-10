@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/model-viewer": "^4.1.0",
+    "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@tanstack/react-query": "^5.82.0",
     "@tanstack/react-query-devtools": "^5.82.0",
@@ -17,6 +18,7 @@
     "@vapor-ui/icons": "^0.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.525.0",
     "motion": "^12.23.0",
     "next": "15.3.5",
