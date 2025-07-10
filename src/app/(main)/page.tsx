@@ -1,69 +1,72 @@
 import React from "react";
 import { CardRoot, CardBody } from "@vapor-ui/core";
 import MissionBoard from "@/components/home/mission-board";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { mockMissionData } from "@/constants/mock-data";
 
-interface MissionBoardItemProps {
-  keyword: string;
-  description: string;
-  routeName: string;
-  completedCheckpointCnt: number;
-  totalCheckpointCnt: number;
-}
+const prefetchMissions = async (queryClient: QueryClient) => {
+  const getMissions = async () => {
+    return mockMissionData;
+  };
 
-const mockMissionItems: MissionBoardItemProps[] = [
-  {
-    keyword: "키워드",
-    description: "지도 한 줄 설명",
-    routeName: "지도 이름",
-    completedCheckpointCnt: 1,
-    totalCheckpointCnt: 3,
-  },
-  {
-    keyword: "키워드",
-    description: "지도 한 줄 설명",
-    routeName: "지도 이름",
-    completedCheckpointCnt: 2,
-    totalCheckpointCnt: 3,
-  },
-  {
-    keyword: "키워드",
-    description: "지도 한 줄 설명",
-    routeName: "지도 이름",
-    completedCheckpointCnt: 1,
-    totalCheckpointCnt: 4,
-  },
-];
+  const missions = await queryClient.fetchQuery({
+    queryKey: ["missions"],
+    queryFn: () => getMissions(),
+  });
 
-const HomePage = () => {
+  return missions;
+};
+
+const HomePage = async () => {
+  const queryClient = new QueryClient();
+  const missions = await prefetchMissions(queryClient);
+  const formattedMissions = missions.map((mission) => ({
+    missionId: mission.missionId.toString(),
+    keyword: mission.routeKeyword,
+    description: mission.routeDescription,
+    routeName: mission.routeName,
+    completedCheckpointCnt: mission.checkpoints.filter(
+      (checkpoint) => checkpoint.isComplete
+    ).length,
+    totalCheckpointCnt: mission.checkpoints.length,
+  }));
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <div className="mt-5">
-      <CardRoot className="rounded-2xl border-none bg-card p-5">
-        <CardBody className="p-0">
-          <MissionBoard items={mockMissionItems} />
-        </CardBody>
-      </CardRoot>
-      {/* <Script
-        type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
-      ></Script>
-      <div className="model-viewer">
-        <model-viewer
-          src={"/dol.glb"}
-          ios-src={"/dol.usdz"}
-          alt={"model-viewer"}
-          ar
-          ar-modes="webxr scene-viewer quick-look"
-          ar-scale="auto"
-          environment-image="neutral"
-          camera-controls
-        >
-          <button slot="ar-button" id="ar-button">
-            View in AR
-          </button>
-        </model-viewer>
-      </div> */}
-      <div className="h-28" />
-    </div>
+    <HydrationBoundary state={dehydratedState}>
+      <div className="mt-5">
+        <CardRoot className="rounded-2xl border-none bg-card p-5">
+          <CardBody className="p-0">
+            <MissionBoard items={formattedMissions} />
+          </CardBody>
+        </CardRoot>
+        {/* <Script
+          type="module"
+          src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
+        ></Script>
+        <div className="model-viewer">
+          <model-viewer
+            src={"/dol.glb"}
+            ios-src={"/dol.usdz"}
+            alt={"model-viewer"}
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            ar-scale="auto"
+            environment-image="neutral"
+            camera-controls
+          >
+            <button slot="ar-button" id="ar-button">
+              View in AR
+            </button>
+          </model-viewer>
+        </div> */}
+        <div className="h-28" />
+      </div>
+    </HydrationBoundary>
   );
 };
 
