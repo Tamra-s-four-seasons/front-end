@@ -12,6 +12,7 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import CardComponent from "../card-component";
 import Image from "next/image";
+import { isGoormComplete } from "@/lib/localStorage";
 
 // Mock data for modal cards
 const MODAL_CARD_DATA = [
@@ -96,6 +97,7 @@ const CARD_DATA: CardData[] = [
     id: 2,
     name: "한라봉올레",
     stamp: "/images/g2.png",
+    alternateStamp: "/images/signin/stamp2.svg",
     locked: false,
     difficulty: 2,
   },
@@ -103,6 +105,7 @@ const CARD_DATA: CardData[] = [
     id: 3,
     name: "땅콩올레",
     stamp: "/images/signin/stamp3.svg",
+    alternateStamp: "/images/signin/stamp3.svg",
     locked: false,
     difficulty: 3,
   },
@@ -131,6 +134,25 @@ const CARD_DATA: CardData[] = [
 
 export default function StampTile() {
   const [stampData, setStampData] = useState<CardData[]>(CARD_DATA);
+
+  useEffect(() => {
+    // Check if goorm is completed
+    const isGoormDone = isGoormComplete();
+
+    if (isGoormDone) {
+      setStampData((prevData) =>
+        prevData.map((card) => {
+          if (card.alternateStamp) {
+            return {
+              ...card,
+              stamp: card.alternateStamp,
+            };
+          }
+          return card;
+        })
+      );
+    }
+  }, []);
 
   // 타일을 두 개씩 그룹화
   const groupedCards = stampData.reduce((acc, curr, i) => {
