@@ -22,7 +22,7 @@ const mockTrails: TrailData[] = [
     location: "서귀포시 성산읍",
     distance: "140m",
     difficulty: 1,
-    tags: ["낭만", "일출"],
+    tags: ["해커톤", "열정"],
     imageUrl: null,
   },
   {
@@ -192,7 +192,7 @@ const CarouselComponent: React.FC = () => {
       </div>
 
       <div className="flex justify-center px-4">
-        <Link href="#" className="w-[76%] max-w-md">
+        <Link href="/missions" className="w-[76%] max-w-md">
           <button className="w-full bg-[#2DDE72] text-white text-m font-bold py-4 px-8 rounded-[22px] hover:bg-green-500 transition-colors duration-300">
             지도 생성하기
           </button>
