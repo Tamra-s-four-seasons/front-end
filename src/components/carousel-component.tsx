@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -13,6 +13,7 @@ interface TrailData {
   difficulty: number;
   tags: string[];
   imageUrl?: string | null;
+  isLocked?: boolean;
 }
 
 const mockTrails: TrailData[] = [
@@ -20,52 +21,49 @@ const mockTrails: TrailData[] = [
     trailName: "구름 올레",
     location: "서귀포시 성산읍",
     distance: "140m",
-    difficulty: 2,
-    tags: ["낭만적", "일출"],
+    difficulty: 1,
+    tags: ["낭만", "일출"],
     imageUrl: null,
   },
   {
     trailName: "바람 올레",
     location: "제주시 한림읍",
-    distance: "2.5km",
-    difficulty: 3,
-    tags: ["상쾌함", "바다"],
-    imageUrl: null,
-  },
-  {
-    trailName: "숲길 올레",
-    location: "제주시 조천읍",
-    distance: "5km",
-    difficulty: 1,
-    tags: ["힐링", "자연"],
-    imageUrl: null,
-  },
-  {
-    trailName: "오름 올레",
-    location: "서귀포시 안덕면",
-    distance: "3.2km",
-    difficulty: 3,
-    tags: ["도전", "경치"],
-    imageUrl: null,
-  },
-  {
-    trailName: "해안 올레",
-    location: "제주시 애월읍",
-    distance: "7km",
+    distance: "3km",
     difficulty: 2,
-    tags: ["시원함", "노을"],
+    tags: ["해안도로", "경치"],
     imageUrl: null,
+  },
+  {
+    trailName: "땅콩 올레",
+    location: "제주시 우도면",
+    distance: "14.24km",
+    difficulty: 3,
+    tags: ["낭만", "일출"],
+    imageUrl: null,
+  },
+  // 잠금 카드 추가
+  {
+    trailName: "",
+    location: "",
+    distance: "",
+    difficulty: 0,
+    tags: [],
+    isLocked: true,
   },
 ];
 
 const CarouselComponent: React.FC = () => {
   const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
-    align: "start",
-    containScroll: "trimSnaps",
+    align: "center",
+    containScroll: "keepSnaps",
+    dragFree: false,
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [startX, setStartX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   const scrollTo = useCallback(
     (index: number) => {
@@ -76,15 +74,56 @@ const CarouselComponent: React.FC = () => {
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    const currentIndex = emblaApi.selectedScrollSnap();
+    setSelectedIndex(currentIndex);
   }, [emblaApi]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaApi || !containerRef.current) return;
+
     onSelect();
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
-  }, [emblaApi, onSelect]);
+
+    const container = containerRef.current;
+
+    const preventDefaultTouch = (e: TouchEvent) => {
+      if (selectedIndex === 3) {
+        const touch = e.touches[0];
+        const currentX = touch.clientX;
+
+        if (!isDragging) {
+          setStartX(currentX);
+          setIsDragging(true);
+        } else {
+          const diff = currentX - startX;
+          // 오른쪽으로 스와이프 시도할 때만 preventDefault
+          if (diff < -5) {
+            e.preventDefault();
+            emblaApi.scrollTo(3);
+          }
+        }
+      }
+    };
+
+    const touchEnd = () => {
+      setIsDragging(false);
+    };
+
+    container.addEventListener("touchmove", preventDefaultTouch, {
+      passive: false,
+    });
+    container.addEventListener("touchend", touchEnd);
+    container.addEventListener("touchcancel", touchEnd);
+
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+      container.removeEventListener("touchmove", preventDefaultTouch);
+      container.removeEventListener("touchend", touchEnd);
+      container.removeEventListener("touchcancel", touchEnd);
+    };
+  }, [emblaApi, onSelect, selectedIndex, isDragging, startX]);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#EAFCF1]">
@@ -110,13 +149,32 @@ const CarouselComponent: React.FC = () => {
       </h1>
 
       <div className="flex justify-center mt-[5%]">
-        <div className="w-full overflow-hidden pl-[14.5%]" ref={emblaRef}>
-          <div className="flex -ml-4">
-            {mockTrails.map((trail, index) => (
-              <div key={index} className="flex-none w-[71%] pl-4">
-                <CardComponent {...trail} />
-              </div>
-            ))}
+        <div ref={containerRef} className="w-full overflow-hidden">
+          <div
+            ref={emblaRef}
+            className={`${selectedIndex === 3 ? "touch-pan-y" : ""}`}
+          >
+            <style jsx>{`
+              .touch-pan-y {
+                touch-action: pan-y !important;
+                -ms-touch-action: pan-y !important;
+                -webkit-touch-action: pan-y !important;
+              }
+            `}</style>
+            <div className="flex">
+              {mockTrails.map((trail, index) => (
+                <div
+                  key={index}
+                  className={`flex-none w-[84%] px-2`}
+                  style={{
+                    marginLeft: index === 0 ? "8%" : "0",
+                    marginRight: index === mockTrails.length - 1 ? "8%" : "0",
+                  }}
+                >
+                  <CardComponent {...trail} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

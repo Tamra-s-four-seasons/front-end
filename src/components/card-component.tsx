@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Star } from "lucide-react";
+import { LockIcon } from "@vapor-ui/icons";
 
 interface CardComponentProps {
   trailName: string;
@@ -10,6 +11,8 @@ interface CardComponentProps {
   difficulty: number;
   tags: string[];
   imageUrl?: string | null;
+  size?: "normal" | "small" | "xsmall";
+  isLocked?: boolean;
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({
@@ -19,11 +22,37 @@ const CardComponent: React.FC<CardComponentProps> = ({
   difficulty,
   tags,
   imageUrl,
+  size = "normal",
+  isLocked = false,
 }) => {
+  if (isLocked) {
+    return (
+      <div className="pt-[18%] flex flex-col bg-[#CCCCCC] rounded-2xl p-4 border-4 border-[#ADADAD] h-full">
+        <div className="relative w-full rounded-xl overflow-hidden mb-4 aspect-square flex items-center justify-center bg-[#CCCCCC]">
+          <div className="w-[40%] h-[40%] flex items-center justify-center">
+            <style jsx>{`
+              :global(.vapor-lock-icon) {
+                --vapor-icon-width: 100% !important;
+                --vapor-icon-height: 100% !important;
+                width: 100% !important;
+                height: 100% !important;
+              }
+            `}</style>
+            <LockIcon className="vapor-lock-icon text-[#707070]" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col bg-white  rounded-2xl p-4">
+    <div className="flex flex-col bg-white rounded-2xl p-4 h-full">
       {/* Image Area */}
-      <div className="relative w-full  aspect-square bg-gray-200 rounded-xl overflow-hidden mb-4 border-2 border-[#ADADAD]">
+      <div
+        className={`relative w-full rounded-xl overflow-hidden mb-4 border-2 border-[#ADADAD] 
+       aspect-square
+          bg-gray-200`}
+      >
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -49,7 +78,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
       </div>
 
       {/* Content Area */}
-      <div className="flex flex-col">
+      <div className="flex flex-col flex-1">
         {/* Title */}
         <div className="flex items-center justify-between">
           <h3 className="font-bold truncate text-m">{trailName}</h3>
@@ -72,8 +101,6 @@ const CardComponent: React.FC<CardComponentProps> = ({
         <p className="text-xs text-gray-500 mt-1">
           {location} · {distance}
         </p>
-
-        {/* Difficulty Stars */}
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mt-2">
