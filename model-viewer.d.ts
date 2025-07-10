@@ -73,6 +73,7 @@ declare module "@google/model-viewer" {
      * Enables AR lighting estimation in WebXR mode; this has a performance cost and replaces the lighting selected with environment-image during an AR session. Known issues: sometimes too dark, sudden updates, shiny materials look matte.
      */
     "xr-environment"?: boolean;
+    scale?: string;
   };
 
   /** https://modelviewer.dev/docs/index.html#stagingandcameras-attributes */
