@@ -35,6 +35,10 @@ const MODELS = [
   ],
 ];
 
+// const NAVIGATION_URLS = [
+//   "https://map.naver.com/p/directions/-/14128516.4288837,3955185.878391,%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%EC%8B%9C%20%EB%8F%99%EB%A5%98%EC%95%94%EB%A1%9C%2020,,SIMPLE_POI/-/transit?c=18.00,0,0,0,dh",
+// ];
+
 interface Route1CheckpointsProps {
   checkpoints: CheckpointData[];
 }
@@ -349,7 +353,14 @@ const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
             <DrawerFooter className="p-0 flex flex-row justify-between py-4">
               {!checkLocation(selectedCheckpoint) ? (
                 <>
-                  <Button className="flex-1 w-full border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]">
+                  <Button
+                    onClick={() => {
+                      router.push(
+                        "https://map.naver.com/p/directions/-/14128516.4288837,3955185.878391,%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%EC%8B%9C%20%EB%8F%99%EB%A5%98%EC%95%94%EB%A1%9C%2020,,SIMPLE_POI/-/transit?c=18.00,0,0,0,dh"
+                      );
+                    }}
+                    className="flex-1 w-full border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]"
+                  >
                     길찾기
                   </Button>
                   <Button
@@ -361,7 +372,14 @@ const Route1Checkpoints = ({ checkpoints }: Route1CheckpointsProps) => {
                 </>
               ) : (
                 <>
-                  <Button className="flex-1 border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]">
+                  <Button
+                    onClick={() => {
+                      router.push(
+                        "https://map.naver.com/p/directions/-/14128516.4288837,3955185.878391,%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%EC%8B%9C%20%EB%8F%99%EB%A5%98%EC%95%94%EB%A1%9C%2020,,SIMPLE_POI/-/transit?c=18.00,0,0,0,dh"
+                      );
+                    }}
+                    className="flex-1 border-2 border-primary bg-white text-primary text-[22px] font-semibold rounded-[20px] h-[68px]"
+                  >
                     길찾기
                   </Button>
                   <div className="model-viewer h-[68px] w-full mx-auto flex-2">
