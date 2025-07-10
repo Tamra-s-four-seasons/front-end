@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@vapor-ui/core";
 
-const API_URL = "http://java-backend.goormthon-6.svc.cluster.local:80";
+const API_URL = "https://java-backend.goormthon-6.svc.cluster.local:80";
 
 const Page = () => {
   return (
