@@ -108,8 +108,6 @@ export interface MissionData {
   routeId: string;
   routeName: string;
   routeKeyword: string;
-  routeDescription: string;
-  routeImageUrl: string;
   isComplete: boolean;
   checkpoints: CheckpointData[];
 }
@@ -121,8 +119,7 @@ export const mockMissionData: MissionData[] = [
     routeId: "jeju-001",
     routeName: "구름 올레",
     routeKeyword: "런닝맛집코스",
-    routeDescription: "너무 좋은 길입니다.",
-    routeImageUrl: "https://example.com/route-maps/jeju-001.jpg",
+
     isComplete: false,
     checkpoints: [
       {
@@ -175,9 +172,8 @@ export const mockMissionData: MissionData[] = [
     userId: "user456",
     routeId: "busan-002",
     routeKeyword: "바다내음",
-    routeDescription: "바다바람 맞으며 보물찾기",
+
     routeName: "부산 올레",
-    routeImageUrl: "https://example.com/route-maps/busan-002.jpg",
     isComplete: true,
     checkpoints: [
       {
@@ -220,6 +216,17 @@ export const mockMissionData: MissionData[] = [
         imgUrls: ["https://example.com/checkpoints/market1.jpg"],
         isComplete: true,
       },
+      {
+        checkpointId: "cp-007",
+        name: "깡통시장 야시장",
+        latitude: 35.1013,
+        longitude: 129.0306,
+        address: "부산광역시 동구 중앙대로 179번길 25",
+        description:
+          "부산 대표 전통시장의 야시장으로, 다양한 길거리 음식과 생동감 넘치는 분위기를 즐길 수 있습니다.",
+        imgUrls: ["https://example.com/checkpoints/market1.jpg"],
+        isComplete: true,
+      },
     ],
   },
   {
@@ -228,8 +235,7 @@ export const mockMissionData: MissionData[] = [
     routeId: "seoul-003",
     routeName: "서울 올레",
     routeKeyword: "한옥",
-    routeDescription: "전통과 현대가 조화를 이루는 코스",
-    routeImageUrl: "https://example.com/route-maps/seoul-003.jpg",
+
     isComplete: false,
     checkpoints: [
       {
@@ -284,6 +290,17 @@ export const mockMissionData: MissionData[] = [
           "https://example.com/checkpoints/yeonnam1.jpg",
           "https://example.com/checkpoints/yeonnam2.jpg",
         ],
+        isComplete: false,
+      },
+      {
+        checkpointId: "cp-011",
+        name: "망원시장 골목",
+        latitude: 37.5519,
+        longitude: 126.9748,
+        address: "서울특별시 마포구 망원동 394-13",
+        description:
+          "젊은 상인들이 운영하는 개성 넘치는 가게들과 맛집들이 즐비한 로컬 마켓의 매력을 느낄 수 있습니다.",
+        imgUrls: ["https://example.com/checkpoints/mangwon1.jpg"],
         isComplete: false,
       },
     ],

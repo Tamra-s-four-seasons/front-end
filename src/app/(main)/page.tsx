@@ -27,7 +27,7 @@ const HomePage = async () => {
   const formattedMissions = missions.map((mission) => ({
     missionId: mission.missionId.toString(),
     keyword: mission.routeKeyword,
-    description: mission.routeDescription,
+    description: mission.routeKeyword,
     routeName: mission.routeName,
     completedCheckpointCnt: mission.checkpoints.filter(
       (checkpoint) => checkpoint.isComplete
