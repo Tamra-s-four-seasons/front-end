@@ -4,8 +4,8 @@ export const mockRouteData = [
     routeName: "제주 숨은 보석 투어",
     checkpoints: [
       {
-        latitude: 33.489,
-        longitude: 126.4983,
+        latitude: 33.450223,
+        longitude: 126.918293,
         name: "용머리해안",
         address: "제주특별자치도 서귀포시 안덕면 사계리 181",
         description:
