@@ -1,8 +1,8 @@
-import MapGridComponent from "@/components/map-grid-component";
+import OlleCardGrid from "@/components/collection/olle-card-grid";
 import React from "react";
 
 const CollectionPage = () => {
-  return <MapGridComponent />;
+  return <OlleCardGrid />;
 };
 
 export default CollectionPage;
