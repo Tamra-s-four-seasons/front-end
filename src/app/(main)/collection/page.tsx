@@ -1,7 +1,8 @@
+import MapGridComponent from "@/components/map-grid-component";
 import React from "react";
 
 const CollectionPage = () => {
-  return <div>내 컬렉션</div>;
+  return <MapGridComponent />;
 };
 
 export default CollectionPage;
