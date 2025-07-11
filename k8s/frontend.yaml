@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 837126493345.dkr.ecr.ap-northeast-2.amazonaws.com/team6/frontend:25
+          image: 837126493345.dkr.ecr.ap-northeast-2.amazonaws.com/team6/frontend:26
           ports:
             - containerPort: 3000
           volumeMounts:
