@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 고블락
 
-## Getting Started
+**🌟 고블락에 오신 것을 환영합니다! 🌟**  
+고블락은 제주의 숨겨진 명소들을 생생하게 탐험할 수 있는 혁신적인 웹 애플리케이션입니다. 최첨단 AR 기술과 세련된 프론트엔드 디자인을 결합하여, 누구나 쉽게 접근할 수 있는 스마트한 관광 경험을 제공합니다. 🌍 저희는 AI에 의존하지 않고도 기획력과 창의력으로 저비용 솔루션을 구현하여, 지속 가능한 여행 문화를 만들어갑니다. 제주의 자연을 보호하면서도 즐거움을 더하는 고블락과 함께, 새로운 제주를 발견해보세요! 🚀
 
-First, run the development server:
+## 프로젝트 개요
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+고블락은 Next.js로 개발된 프론트엔드 애플리케이션으로, 뛰어난 사용자 경험을 제공하며 확장성과 유지보수성을 목표로 설계되었습니다. 최신 기술 스택을 활용하여 성능이 우수하고 상호작용적인 인터페이스를 구현했으며, 이 저장소에서 호스팅됩니다. 이 프로젝트는 제주의 숨은 명소를 소개하는 것을 넘어, 기술과 창의성을 통해 관광의 새로운 패러다임을 제시합니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 사용된 기술
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+고블락은 다음과 같은 현대적인 기술 스택을 활용하여 개발되었습니다:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js**: 서버 사이드 렌더링(SSR), 정적 사이트 생성(SSG), API 라우트를 지원하여 빠르고 효율적인 웹 경험을 제공합니다.
+- **React**: 사용자 인터페이스 구축의 핵심 라이브러리로, 컴포넌트 기반 개발을 가능하게 합니다.
+- **Vapor**: 디자인 시스템으로, 디자이너의 시안과 일치하는 사전 제작된 컴포넌트와 스타일을 제공합니다.
+- **Tailwind CSS**: 유틸리티 우선 스타일링 프레임워크로, 빠르고 일관된 스타일 적용을 가능하게 합니다.
+- **TanStack Query**: 데이터 페칭, 캐싱, 동기화를 효율적으로 처리하여 최적화된 데이터 관리를 지원합니다.
+- **Google Model Viewer**: 3D 모델을 상호작용적으로 렌더링하여 몰입형 경험을 제공합니다.
+- **Embla Carousel React**: 부드럽고 상호작용적인 캐러셀 기능을 구현합니다.
 
-## Learn More
+특히, **Vapor와 Tailwind CSS의 조합**은 프로젝트의 스타일링에서 큰 강점을 발휘했습니다. Vapor를 통해 디자이너가 제공한 시안을 기반으로 일관된 컴포넌트와 스타일을 빠르게 구축했으며, Tailwind CSS로 세부 스타일을 정밀하게 조정하여 개발 속도를 높이고 디자인 의도를 충실히 반영했습니다.
 
-To learn more about Next.js, take a look at the following resources:
+## 프로젝트 구조
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+고블락은 명확하고 모듈화된 디렉토리 구조로 구성되어 있습니다:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/actions`: 서버 액션 및 데이터 처리 로직
+- `src/app`: Next.js 페이지와 레이아웃
+- `src/assets`: 이미지, 폰트 등 정적 자원
+- `src/components`: 재사용 가능한 UI 컴포넌트
+- `src/constants`: 애플리케이션 전역 상수
+- `src/hooks`: 커스텀 React 훅
+- `src/lib`: 유틸리티 함수 및 API 클라이언트
+- `src/styles`: 전역 CSS 및 로컬 폰트 설정
+- `src/types`: TypeScript 타입 정의
 
-## Deploy on Vercel
+이 구조는 코드의 가독성과 유지보수성을 높이며, 새로운 기능 추가 시 확장성을 보장합니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 주요 기능
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+고블락은 사용자 중심의 혁신적인 기능을 제공합니다:
+
+- **3D 모델 뷰어**: 사용자가 제주의 명소를 3D로 탐색할 수 있는 몰입형 경험.
+- **테마 지원**: 라이트 및 다크 모드 옵션으로 개인화된 사용 경험 제공.
+- **반응형 디자인**: 데스크톱, 태블릿, 모바일 등 모든 디바이스에서 일관된 경험 보장.
+- **효율적인 데이터 처리**: TanStack Query를 활용해 데이터 페칭과 캐싱을 최적화.
+- **캐러셀 컴포넌트**: 부드럽고 직관적인 콘텐츠 탐색 경험.
+
+## 로컬 설정 방법
+
+고블락을 로컬 환경에서 실행하려면 다음 단계를 따르세요:
+
+1. **저장소 복제**:
+
+   ```bash
+   git clone https://github.com/Tamra-s-four-seasons/front-end.git
+   cd front-end
+   ```
+
+2. **의존성 설치**:
+
+   ```bash
+   npm install
+   ```
+
+3. **개발 서버 실행**:
+
+   ```bash
+   npm run dev
+   ```
+
+   애플리케이션은 `http://localhost:3000`에서 확인할 수 있습니다.
+
+## 팀 및 개발 프로세스
+
+고블락은 두 명의 프론트엔드 개발자로 구성된 소규모 팀이 주도했습니다. 개발은 2시간 단위의 스프린트로 진행되었으며, 매 스프린트마다 실시간 피드백을 받아 방향성을 조정하고 개선점을 반영했습니다. 이 짧은 주기는 빠른 이터레이션과 품질 향상을 가능하게 했으며, 사용자 요구사항에 신속히 대응할 수 있는 유연성을 제공했습니다.
+
+## 아키텍처 선정 이유
+
+고블락의 아키텍처는 프로젝트 목표와 개발 프로세스에 최적화되어 설계되었습니다:
+
+- **성능 최적화**: Next.js의 SSR과 SSG는 페이지 로딩 속도를 줄여 사용자 경험을 극대화합니다.
+- **확장성**: 컴포넌트 기반 구조와 계층형 디렉토리 설계로 새로운 기능 추가가 용이합니다.
+- **유지보수성**: 모듈화된 코드와 명확한 구조는 버그 수정과 코드 리뷰를 간소화합니다.
+- **개발 효율성**: Tailwind CSS와 React의 조합으로 디자인과 로직 개발을 병행하며 빠르게 프로토타입을 완성했습니다.
+
+## 라이선스
+
+이 프로젝트는 MIT 라이선스에 따라 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
+
+---
+
+고블락은 단순한 관광 애플리케이션을 넘어, 기술과 창의력이 결합된 미래 지향적인 프로젝트입니다. 제주의 아름다움을 새로운 방식으로 경험하고, 지속 가능한 관광의 가치를 함께 실현해보세요! 🌴
