@@ -6,8 +6,8 @@ import QueryClientProvider from "@/components/providers/query-client-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "탐라는사계절",
-  description: "탐라는사계절",
+  title: "고블락",
+  description: "제주도 곳곳에 숨은 캐릭터를 찾아 여행하세요!",
 };
 
 export default function RootLayout({

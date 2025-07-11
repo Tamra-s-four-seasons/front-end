@@ -4,12 +4,25 @@ import { PlusBoxIcon, UserOutlineIcon } from "@vapor-ui/icons";
 import Navigation from "@/components/home/navigation";
 import Link from "next/link";
 import { Text } from "@vapor-ui/core";
+import Image from "next/image";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="px-5 pt-[50.45px]">
+    <main className="px-5 pt-[50.45px] relative">
+      <Image
+        src="/images/character.png"
+        alt="character"
+        width={102.3}
+        height={128.64}
+        className="absolute top-20 right-10"
+      />
       <div className="flex items-center justify-between">
-        <div className="bg-gray-200 h-[44.1px] w-[116.99px]" />
+        <Image
+          src="/images/logo.png"
+          alt="logo"
+          width={103.39}
+          height={23.94}
+        />
         <UserOutlineIcon size={35} />
       </div>
       <div className="h-[22.29px]" />
