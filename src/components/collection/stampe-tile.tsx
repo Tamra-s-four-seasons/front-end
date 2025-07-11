@@ -109,21 +109,21 @@ const CARD_DATA: CardData[] = [
   },
   {
     id: 4,
-    name: "구름올레",
+    name: "추후공개",
     stamp: "/images/signin/stamp1.svg",
     locked: true,
     difficulty: 0,
   },
   {
     id: 5,
-    name: "한라봉올레",
+    name: "추후공개",
     stamp: "/images/signin/stamp2.svg",
     locked: true,
     difficulty: 0,
   },
   {
     id: 6,
-    name: "땅콩올레",
+    name: "추후공개",
     stamp: "/images/signin/stamp3.svg",
     locked: true,
     difficulty: 0,
@@ -212,7 +212,12 @@ export default function StampTile() {
                             alt={card.name}
                             width={100}
                             height={100}
-                            className="w-full h-full"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              objectFit: "contain",
+                            }}
                           />
                         </div>
                         <span className="text-sm text-[#515151] text-center">

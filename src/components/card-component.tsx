@@ -60,15 +60,27 @@ const CardComponent: React.FC<CardComponentProps> = ({
           <Image
             src={imageUrl}
             alt={trailName}
-            className="w-full h-full object-scale-down"
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{
+              objectFit: "contain",
+              width: "100%",
+              height: "100%",
+              transform: "scale(0.8)",
+            }}
           />
         ) : backgroundImage ? (
           <Image
             src={backgroundImage}
             alt={trailName}
-            className="w-full h-full object-scale-down"
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{
+              objectFit: "contain",
+              width: "100%",
+              height: "100%",
+              transform: "scale(0.8)",
+            }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
