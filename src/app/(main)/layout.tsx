@@ -5,6 +5,7 @@ import Navigation from "@/components/home/navigation";
 import Link from "next/link";
 import { Text } from "@vapor-ui/core";
 import Image from "next/image";
+import HomeHeading from "@/components/home/home-heading";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -26,9 +27,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <UserOutlineIcon size={35} />
       </div>
       <div className="h-[22.29px]" />
-      <h1 className="text-foreground text-[26px] leading-12 font-bold h-12">
-        구름님의 지도
-      </h1>
+      <HomeHeading />
       <div className="h-[21.16px]" />
       <Navigation />
       {children}

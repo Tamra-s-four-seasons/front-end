@@ -13,7 +13,9 @@ import Screen4 from "@/assets/images/signin/screen-4.png";
 import Link from "next/link";
 import { Button } from "@vapor-ui/core";
 import { setAuthUser } from "@/lib/auth";
+import { signInAction } from "@/actions/auth";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const DESCRIPTIONS = [
   [["버튼 하나로 ", "탐험을 시작", "해요"], "숨은 제주가 열립니다"],
@@ -32,6 +34,8 @@ const SigninForm = () => {
     username: "",
     password: "",
   });
+
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -61,17 +65,31 @@ const SigninForm = () => {
     }));
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // 테스트용 간단한 로그인 처리
-    if (loginData.username && loginData.password) {
+    // if (loginData.username && loginData.password) {
+    //   setAuthUser({
+    //     id: Date.now().toString(), // 임시 ID 생성
+    //     username: loginData.username,
+    //   });
+    //   router.push("/");
+    // }
+    setIsLoggingIn(true);
+    const res = await signInAction(loginData.username, loginData.password);
+    if (typeof res === "object" && "message" in res) {
+      toast.error(res.message, {
+        richColors: true,
+      });
+    } else {
       setAuthUser({
         id: Date.now().toString(), // 임시 ID 생성
-        username: loginData.username,
+        username: res,
       });
       router.push("/");
     }
+    setIsLoggingIn(false);
   };
 
   return (
@@ -199,8 +217,9 @@ const SigninForm = () => {
               <Button
                 onClick={handleLogin}
                 className="w-full max-w-[280px] min-w-[85%] sm:min-w-[40vw] h-[clamp(64px,5vh,6.5vh)] rounded-[0.75rem] bg-gray-800 text-white mb-[calc(1vh)]"
+                disabled={isLoggingIn}
               >
-                로그인하기
+                {isLoggingIn ? "로그인 중..." : "로그인하기"}
               </Button>
             )}
 
@@ -218,11 +237,11 @@ const SigninForm = () => {
               ) : (
                 <>
                   로그인함으로써{" "}
-                  <Link href="/terms" className="!underline">
+                  <Link href="#" className="!underline">
                     이용약관
                   </Link>{" "}
                   및{" "}
-                  <Link href="/" className="!underline">
+                  <Link href="#" className="!underline">
                     개인정보처리방침
                   </Link>
                   에 동의합니다.
