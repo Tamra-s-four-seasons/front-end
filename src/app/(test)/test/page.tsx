@@ -3,8 +3,8 @@
 import React from "react";
 import { Button } from "@vapor-ui/core";
 
-const API_URL_HTTPS = "https://backend-team6.goorm.training:8080";
-const API_URL_HTTP = "http://backend-team6.goorm.training:8080";
+const API_URL_HTTPS = "https://backend-team6.goorm.training";
+const API_URL_HTTP = "http://backend-team6.goorm.training";
 
 const Page = () => {
   return (
