@@ -1,7 +1,14 @@
-@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+@layer theme, vapor-theme, base, vapor-reset, vapor-component, vapor-utilities, utilities;
+
+@import "@vapor-ui/core/styles.css";
+
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities" layer(utilities);
 
 @theme inline {
   --color-background: var(--background);
@@ -46,18 +53,18 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --foreground: oklch(0.3485 0 0);
+  --card: oklch(0.9731 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.7923 0.2028 150.66);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9748 0.0238 159.16);
+  --secondary-foreground: oklch(0.7923 0.2028 150.66);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.6585 0.191 23.99);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -118,5 +125,14 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* .model-viewer {
+    height: 100vh;
+  } */
+  .text-gray-500 {
+    color: #515151;
   }
 }
