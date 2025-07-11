@@ -3,9 +3,13 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import SignIn1 from "@/assets/images/signin/signin-1.png";
-import SignIn2 from "@/assets/images/signin/signin-2.png";
-import SignIn3 from "@/assets/images/signin/signin-3.png";
+// import SignIn1 from "@/assets/images/signin/signin-1.png";
+// import SignIn2 from "@/assets/images/signin/signin-2.png";
+// import SignIn3 from "@/assets/images/signin/signin-3.png";
+import Screen1 from "@/assets/images/signin/screen-1.png";
+import Screen2 from "@/assets/images/signin/screen-2.png";
+import Screen3 from "@/assets/images/signin/screen-3.png";
+import Screen4 from "@/assets/images/signin/screen-4.png";
 import Link from "next/link";
 import { Button } from "@vapor-ui/core";
 import { setAuthUser } from "@/lib/auth";
@@ -15,9 +19,10 @@ const DESCRIPTIONS = [
   [["버튼 하나로 ", "탐험을 시작", "해요"], "숨은 제주가 열립니다"],
   [["거리와 난이도로 ", "루트 추천", ""], "코스를 따라 걸어보세요"],
   [["핀을 눌러 ", "장소를 확인", "해요"], "숨겨진 포인트를 발견해요"],
+  [["미션을 ", "끝내면 ", "저장돼요"], "쌓이는 나의 탐험 기록"],
 ];
 
-const CAROUSEL_ITEMS = [SignIn1, SignIn2, SignIn3];
+const CAROUSEL_ITEMS = [Screen1, Screen2, Screen3, Screen4];
 
 const SigninForm = () => {
   const router = useRouter();
@@ -79,18 +84,18 @@ const SigninForm = () => {
         {/* Main Card */}
         <div className="w-[70%] sm:w-[45vw] h-[40vh] max-w-[1200px] bg-white rounded-t-[1rem] p-4 sm:p-6 md:p-8">
           <div className="flex flex-col items-center h-full">
-            <Image
+            {/* <Image
               src="/images/snippins_temp_logo.svg"
               alt="logo"
               width={195}
               height={100}
               className="w-20 sm:w-24 md:w-28 mb-4 sm:mb-6 md:mb-8"
-            />
+            /> */}
 
             {/* Carousel Section with aspect ratio container */}
             <div className="w-full flex-1 flex items-center justify-center">
               {!showLoginForm ? (
-                <div className="w-full max-w-[400px] aspect-[400/299]">
+                <div className="w-full">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentIndex}
